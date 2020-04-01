@@ -1,6 +1,6 @@
-# academic_grade
+# AcademicGrade
 
-A new Flutter project.
+Un nuevo Proyecto de Flutter. by Elkin Fernandez y Jhon Parra.
 
 ## Getting Started
 
