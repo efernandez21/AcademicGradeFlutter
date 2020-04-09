@@ -1,14 +1,16 @@
+import 'package:academic_grade/src/models/Asignatura.dart';
+
 class Actividad {
   String descripcion;
-  String fechaLimite;
-  String asignatura;
+  String fechaEntrega;
+  Asignatura asignatura;
 
-  Actividad(descripcion, fechaLimite, asignatura) {
+  Actividad(descripcion, fechaEntrega, asignatura) {
     this.descripcion = descripcion;
-    this.fechaLimite = fechaLimite;
+    this.fechaEntrega = fechaEntrega;
     this.asignatura = asignatura;
   }
   String toString() {
-    return descripcion + " " + fechaLimite + " " + asignatura;
+    return descripcion + " " + fechaEntrega + " " + asignatura.nombre;
   }
 }
