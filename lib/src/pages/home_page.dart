@@ -6,7 +6,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(23, 136, 124, 1.0),
+      backgroundColor: Color.fromRGBO(0, 153, 153, 1.0),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
@@ -18,25 +18,25 @@ class HomePage extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
               child: Image(
-                image: AssetImage('assets/img/logo11.png'),
+                image: AssetImage('assets/img/academic.png'),
               ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Image(
-                image: AssetImage('assets/img/logo12.png'),
+                image: AssetImage('assets/img/grade.png'),
               ),
             ),
             SizedBox(height: 50.0),
             //Contenedor con el icono de usuario
-            CardSwiper(),
+            _cardContainer(),
             Container(
               // color: Colors.blue,
               padding: EdgeInsets.symmetric(vertical: 10.0),
               child: Text(
                 'Estudiante',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Color.fromRGBO(51, 204, 204, 1.0),
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
           child: Text(
             'Ingresar',
             style: TextStyle(
-              color: Colors.white,
+              color: Color.fromRGBO(0, 102, 102, 1.0),
               fontSize: 25.0,
               fontWeight: FontWeight.bold,
             ),
@@ -78,6 +78,21 @@ class HomePage extends StatelessWidget {
       onPressed: () {
         Navigator.pushNamed(context, 'user');
       },
+    );
+  }
+  //Widget del usuario de entrada
+  Widget _cardContainer() {
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 10.0),
+          child: Image(
+            height: 200.0,
+            width: 200.0,
+            image: AssetImage('assets/img/avatar.png')
+          ),
+        ),
+      ],
     );
   }
 }

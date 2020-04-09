@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       },
       theme: ThemeData(
         //Muchos elementos toman sus colores del primaryColor tales como el appBar, el floatingActionButton, los botones en el cambio de seleccion, entre otros
-        primaryColor: Color.fromRGBO(10, 110, 99, 1.0),
+        primaryColor: Color.fromRGBO(0, 204, 204, 1.0),
          
       ),
       
