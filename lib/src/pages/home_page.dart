@@ -2,7 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'package:academic_grade/src/widgets/card_swiper.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  //Propiedades de este stataful widget
+  String _opcionSeleccionada = 'Estudiante';
+
+  List<String> _usuarios = ['Estudiante', 'Profesor','Acudiente'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,27 +44,20 @@ class HomePage extends StatelessWidget {
             Container(
               // color: Colors.blue,
               padding: EdgeInsets.symmetric(vertical: 10.0),
-              child: Text(
-                'Estudiante',
-                style: TextStyle(
-                  color: Color.fromRGBO(51, 204, 204, 1.0),
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: _crearDropdown(),
             ),
             SizedBox(
               height: 10.0,
             ),
             // SizedBox(height: 20.0,),
-            _crearBoton(context)
+            _crearBoton(context),
+            SizedBox(height: 10.0),
           ],
         ),
       )),
     );
   }
 
-  //Widget del Boton
   Widget _crearBoton(BuildContext context) {
     //Creando un boton en este caso un RaisedButton que estilizaremos
 
@@ -76,11 +80,11 @@ class HomePage extends StatelessWidget {
       color: Theme.of(context).primaryColor,
       textColor: Colors.white,
       onPressed: () {
-        Navigator.pushNamed(context, 'user');
+        Navigator.pushReplacementNamed(context, 'user',arguments: _opcionSeleccionada);
       },
     );
   }
-  //Widget del usuario de entrada
+
   Widget _cardContainer() {
     return Column(
       children: <Widget>[
@@ -95,4 +99,54 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
+
+  Widget _crearDropdown() {
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        DropdownButton(
+          style: TextStyle(
+            color: Color.fromRGBO(51, 204, 204, 1.0),
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+          ),
+          value: _opcionSeleccionada,
+          items: getOpcionesDropdown(),
+          icon: Icon(Icons.arrow_drop_down_circle),
+          iconSize: 29,
+          // iconDisabledColor: Colors.black,
+          iconEnabledColor: Color.fromRGBO(51, 204, 204, 1.0),
+          focusColor: Colors.black,
+          onChanged: ( opt ) {
+            setState(() {
+              _opcionSeleccionada = opt;
+            });
+          },
+            ),
+        // )
+      ],
+    );
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropdown() {
+
+    //Si no se especifica el tamaño de la lista esta es dinamica
+    List<DropdownMenuItem<String>> lista = new List();
+
+    //Lista de poderes, con el forEach trabajamos cada Item de la lista
+    _usuarios.forEach( (usuario){
+
+      lista.add( DropdownMenuItem(
+        child: Text(usuario),
+        value: usuario,
+      ));
+
+    });
+
+    return lista;
+
+  }
+  //Código
 }

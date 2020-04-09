@@ -3,54 +3,68 @@ import 'package:flutter/material.dart';
 class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+  //String de los argumentos obte
+  final String _usuario = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: CustomScrollView(
           //Columna general
-          child: Column(
-            children: <Widget>[
-              // SizedBox(height: 20.0),
-              //Contenedor de la parte principal de un appbar
-              Container(
-                  padding: EdgeInsets.symmetric(vertical: 30.0),
-                  decoration:
-                      BoxDecoration(
-                        border: Border.all(
-                          color: Colors.blue
-                        ),
-                        color: Colors.blue
-                      ),
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.arrow_back,
-                      size: 50.0,
-                    ),
-                    title: Text(
-                      'Bienvenido Carlos',
-                      style:
-                          TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text('Estudiante'),
-                    trailing:
-                        Image(
-                          image: AssetImage('assets/img/profesor1.png')
-                        ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  )
-              ),
-              //Contenedor de la columna de opciones
-              _opcionesMenu(context),
-              
-            ],
+          slivers: <Widget>[
+            _crearAppbar(),
+            SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                SizedBox(height: 10.0),
+                _opcionesMenu(context),
+                SizedBox(height: 10.0),
+                SizedBox(height: 10.0),
+                SizedBox(height: 10.0),
+                SizedBox(height: 10.0),
+              ]
+            ),
           ),
+          ],
+          
         ),
-      ),
-      floatingActionButton: _crearBotonFloat(context),
+        floatingActionButton: _crearBotonFloat(context),
     );
   }
-
+  Widget _crearAppbar(){
+    //Creamos una SliverAppBar que trabajara con el scroll que se haya realizado en pantalla
+    //pinned en true permite que la barra se mantenga visible cuando se haga el scroll
+    //flexibleSpace es un widget que se adaptara a la SliverAppBar
+    return SliverAppBar(
+      elevation: 2.0,
+      actions: <Widget>[
+        //Fila para 
+        Row(
+          children: <Widget>[
+            Image(
+              image: AssetImage('assets/img/profesor1.png')
+            ),
+          ],
+        ),
+      ],
+      expandedHeight: 150.0,
+      floating: false,
+      pinned: true,
+      flexibleSpace: FlexibleSpaceBar(
+        centerTitle: false,
+        title: Text(
+          'Bienvenido Carlos',
+          style: TextStyle(color: Colors.white, fontSize: 16.0),
+        ),
+        //link del placeholder: AssetImage('assets/img/loading.gif'),
+        background: FadeInImage(
+          image: NetworkImage('https://www.bbva.com/wp-content/uploads/2017/11/iceberg-recurso-fondo-de-comercio-bbva-1024x416.jpg'),
+          placeholder: AssetImage('assets/img/jar-loading.gif'),
+          fadeInDuration: Duration(milliseconds: 150),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
   Widget _crearBotonFloat(context){
     return Row(
       children: <Widget>[
