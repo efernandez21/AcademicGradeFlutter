@@ -19,8 +19,8 @@ class Estudiante {
     this.acudiente = acudiente;
   }
   int asignarEdad() {
-    String fechaNow = new DateTime.now().toString().substring(0, 4);
-    String fechaBirth = this.fechaNacimiento.substring(0, 4);
+    String fechaNow = new DateTime.now().toString().substring(0,4);
+    String fechaBirth = this.fechaNacimiento.substring(6, 10);
     int yearNow = int.parse(fechaNow);
     int yearBirth = int.parse(fechaBirth);
     int edad = yearNow - yearBirth;

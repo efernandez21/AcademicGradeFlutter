@@ -18,12 +18,12 @@ class Selector {
     this.acudiente = acudiente;
   }
  
-  Map<Estudiante,Curso> listarEstudiante(List<Curso> cursos){
+  Map<Estudiante,Curso> listarEstudiante(){
       Map<Estudiante,Curso> todosEstudiantes = Map();
 
-      for(int i=0;i<cursos.length;i++)
+      for(int i=0;i<this.cursos.length;i++)
       {
-        Curso curso = cursos[i];
+        Curso curso = this.cursos[i];
         for(int j=0;j<curso.alumnos.length;j++)
         {
           Estudiante estudiante = curso.alumnos[j];
@@ -35,8 +35,9 @@ class Selector {
       return todosEstudiantes;
   }
 
-  Map<Estudiante,Curso> escogerHijos(Map<Estudiante,Curso> estudiantes )
+  Map<Estudiante,Curso> escogerHijos()
   {
+      Map<Estudiante,Curso> estudiantes = listarEstudiante();
       Map<Estudiante,Curso> hijos = Map();
       List<Estudiante> estudiantePivot = estudiantes.keys.toList();
       for(int i=0;i<estudiantePivot.length;i++)
@@ -56,10 +57,10 @@ class Selector {
     
   }
 
-  void llenarBuzon(Map<Estudiante,Curso> hijos)
+  List<Mensaje> llenarBuzon()
   {
     List<Mensaje> mensajes = new List();
-    List<Curso> cursosHijos = hijos.values.toList().toSet().toList();
+    List<Curso> cursosHijos = escogerHijos().values.toList().toSet().toList();
     print(cursosHijos);
     for(int i=0;i<cursosHijos.length;i++)
     {
@@ -72,8 +73,8 @@ class Selector {
        
       }
     }
-     print(mensajes);
-    //return mensajes;
+     
+    return mensajes;
   }
 
 }

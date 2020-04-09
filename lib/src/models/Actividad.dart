@@ -5,7 +5,7 @@ class Actividad {
   String fechaEntrega;
   Asignatura asignatura;
 
-  Actividad(descripcion, fechaEntrega, asignatura) {
+  Actividad(String descripcion, String fechaEntrega,Asignatura asignatura) {
     this.descripcion = descripcion;
     this.fechaEntrega = fechaEntrega;
     this.asignatura = asignatura;
