@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
- 
+import 'package:academic_grade/src/models/Acudiente.dart';
+
 class Estudiante {
   int id;
   String nombre;
@@ -7,14 +7,16 @@ class Estudiante {
   String fechaNacimiento;
   int edad;
   String genero;
+  Acudiente acudiente;
 
-  Estudiante(id, nombre, apellido, fechaNacimiento, genero) {
+  Estudiante(id, nombre, apellido, fechaNacimiento, genero, acudiente) {
     this.id = id;
     this.nombre = nombre;
     this.apellido = apellido;
     this.fechaNacimiento = fechaNacimiento;
     this.edad = asignarEdad();
     this.genero = genero;
+    this.acudiente = acudiente;
   }
   int asignarEdad() {
     String fechaNow = new DateTime.now().toString().substring(0, 4);
