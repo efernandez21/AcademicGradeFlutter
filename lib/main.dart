@@ -1,3 +1,4 @@
+import 'package:academic_grade/src/pages/calendario_page.dart';
 import 'package:flutter/material.dart';
 //Importaciones paginas
 import 'package:academic_grade/src/pages/home_page.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         'home'           : (BuildContext context ) => HomePage(),
         'user'           : (BuildContext context ) => UserPage(),
         'asignaturas'    : (BuildContext context ) => AsignaturasPage(),
-        'calendario'     : (BuildContext context ) => AsignaturasPage(),
+        'calendario'     : (BuildContext context ) => CalendarioPage(),
         'mensajeria'     : (BuildContext context ) => BuzonPage(),
         'asignatura'     : (BuildContext context ) => AsignaturaPage(),
       },

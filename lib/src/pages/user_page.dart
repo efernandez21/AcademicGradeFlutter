@@ -8,29 +8,49 @@ class UserPage extends StatelessWidget {
   final String _usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      body: CustomScrollView(
+      body: SafeArea(
+        child: SingleChildScrollView(
           //Columna general
-          slivers: <Widget>[
-            _crearAppbar(),
-            SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                SizedBox(height: 10.0),
-                _opcionesMenu(context),
-                SizedBox(height: 10.0),
-                SizedBox(height: 10.0),
-                SizedBox(height: 10.0),
-                SizedBox(height: 10.0),
-              ]
-            ),
+          child: Column(
+            children: <Widget>[
+              // SizedBox(height: 20.0),
+              //Contenedor de la parte principal de un appbar
+              Container(
+                  padding: EdgeInsets.symmetric(vertical: 30.0),
+                  decoration:
+                      BoxDecoration(
+                        border: Border.all(
+                          color: Colors.blue
+                        ),
+                        color: Colors.blue
+                      ),
+                  child: ListTile(
+                    title: Text(
+                      'Bienvenido Carlos',
+                      style:
+                          TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(_usuario),
+                    trailing:
+                        Image(
+                          image: AssetImage('assets/img/profesor1.png')
+                        ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  )
+              ),
+              //Contenedor de la columna de opciones
+              _opcionesMenu(context),
+
+            ],
           ),
-          ],
-          
         ),
-        floatingActionButton: _crearBotonFloat(context),
+      ),
+      floatingActionButton: _crearBotonFloat(context),
     );
   }
-  Widget _crearAppbar(){
+  Widget _crearAppbar(String _usuario){
     //Creamos una SliverAppBar que trabajara con el scroll que se haya realizado en pantalla
     //pinned en true permite que la barra se mantenga visible cuando se haga el scroll
     //flexibleSpace es un widget que se adaptara a la SliverAppBar
@@ -39,10 +59,15 @@ class UserPage extends StatelessWidget {
       actions: <Widget>[
         //Fila para 
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Image(
-              image: AssetImage('assets/img/profesor1.png')
-            ),
+            SizedBox(height: 50.0),
+            Container(
+              padding: EdgeInsets.only(right: 15.0, top: 5.0),
+              child: Image(
+                image: AssetImage('assets/img/profesor1.png')
+              ),
+            )
           ],
         ),
       ],
@@ -51,17 +76,26 @@ class UserPage extends StatelessWidget {
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
-        title: Text(
-          'Bienvenido Carlos',
-          style: TextStyle(color: Colors.white, fontSize: 16.0),
+        title: Column(
+          children: <Widget>[
+            Text(
+              'Bienvenido  Carlos',
+              style: TextStyle(color: Color.fromRGBO(0, 102, 102, 1.0), fontSize: 18.0),
+            ),
+            Text(_usuario)
+          ],
         ),
-        //link del placeholder: AssetImage('assets/img/loading.gif'),
-        background: FadeInImage(
-          image: NetworkImage('https://www.bbva.com/wp-content/uploads/2017/11/iceberg-recurso-fondo-de-comercio-bbva-1024x416.jpg'),
-          placeholder: AssetImage('assets/img/jar-loading.gif'),
-          fadeInDuration: Duration(milliseconds: 150),
-          fit: BoxFit.cover,
-        ),
+        //El background es un gradiente
+        background: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color> [
+                Color.fromRGBO(51, 204, 204, 0.5),
+                Color.fromRGBO(0, 204, 204, 1.0)
+              ]
+            )
+          ),
+        )
       ),
     );
   }
@@ -74,7 +108,8 @@ class UserPage extends StatelessWidget {
           icon: Icon(Icons.exit_to_app),
           backgroundColor: Colors.red,
           onPressed: () {
-            Navigator.pop(context);
+            //Volver al inicio
+            Navigator.pushReplacementNamed(context, 'home');
           }, 
         )
       ],

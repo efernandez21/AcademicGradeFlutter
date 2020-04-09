@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:academic_grade/src/widgets/card_swiper.dart';
+// import 'package:academic_grade/src/widgets/card_swiper.dart';
 
 class HomePage extends StatefulWidget {
   
@@ -114,6 +114,10 @@ class _HomePageState extends State<HomePage> {
           ),
           value: _opcionSeleccionada,
           items: getOpcionesDropdown(),
+          underline: Container(
+            height: 5,
+            color: Color.fromRGBO(0, 102, 102, 1.0),
+          ),
           icon: Icon(Icons.arrow_drop_down_circle),
           iconSize: 29,
           // iconDisabledColor: Colors.black,

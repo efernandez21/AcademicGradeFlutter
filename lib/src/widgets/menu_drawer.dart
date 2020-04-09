@@ -34,7 +34,7 @@ class MenuDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.pages, color: Colors.blue,),
             title: Text('Principal'),
-            onTap: ()=>Navigator.pushReplacementNamed(context, 'user'),  
+            onTap: () => Navigator.of(context).pop() 
           ),
           ListTile(
             leading: Icon(Icons.party_mode, color: Colors.blue,),
@@ -50,7 +50,7 @@ class MenuDrawer extends StatelessWidget {
             leading: Icon(Icons.settings, color: Colors.blue,),
             title: Text('Settings'),
             //El pushReplacementName me permite cambiar mi raiz, esto me envia a la pagina y me quita la posibilidad de regresar aca, recomendado para los login
-            onTap: () => Navigator.pushReplacementNamed(context, 'user'),
+            onTap: () => Navigator.pushReplacementNamed(context, 'home')
           ),
 
         ],
@@ -88,4 +88,5 @@ class MenuDrawer extends StatelessWidget {
       ],
     );
   }
+  
 }
