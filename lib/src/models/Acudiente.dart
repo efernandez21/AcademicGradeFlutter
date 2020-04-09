@@ -6,7 +6,7 @@ class Acudiente {
   String telefono;
   String rolAcudiente;
 
-  Acudiente(id, nombre, apellido, direccion, telefono,rolAcudiente) {
+  Acudiente(int id,String nombre,String apellido,String direccion,String telefono,String rolAcudiente) {
     this.id = id;
     this.nombre = nombre;
     this.apellido = apellido;

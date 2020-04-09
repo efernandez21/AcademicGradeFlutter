@@ -13,7 +13,7 @@ class Selector {
   List<Curso> cursos;
   Acudiente acudiente;
 
-  Selector(cursos, acudiente) {
+  Selector(List<Curso> cursos,Acudiente acudiente) {
     this.cursos = cursos;
     this.acudiente = acudiente;
   }
@@ -67,7 +67,7 @@ class Selector {
       for(int j=0;j<curso.actividades.length;j++)
       {
         Actividad actividad = curso.actividades[j];
-        Mensaje mensaje = new Mensaje(actividad.descripcion,curso.profesorTitular);
+        Mensaje mensaje = new Mensaje(actividad.descripcion,curso.profesorTitular.nombre);
         mensajes.add(mensaje);
        
       }

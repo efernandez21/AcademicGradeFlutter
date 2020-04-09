@@ -10,7 +10,7 @@ class Curso {
   List<Actividad> actividades;
   Profesor profesorTitular;
 
-  Curso(grado, grupo, capacidad, profesorTitular, alumnos, actividades) {
+  Curso(int grado,String grupo, int capacidad,Profesor profesorTitular,List<Estudiante> alumnos,List<Actividad> actividades) {
     this.grado = grado;
     this.grupo = grupo;
     this.capacidad = capacidad;

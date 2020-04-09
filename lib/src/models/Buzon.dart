@@ -4,7 +4,7 @@ class Buzon {
   int idBuzon;
   List<Mensaje> mensajes;
 
-  Buzon(idBuzon,mensajes) {
+  Buzon(int idBuzon,List<Mensaje> mensajes) {
     this.idBuzon = idBuzon;
     this.mensajes = mensajes;
   }

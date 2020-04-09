@@ -5,7 +5,7 @@ class Profesor
   String apellido;
 
 
-  Profesor(idProfesor,nombre,apellido)
+  Profesor(int idProfesor,String nombre,String apellido)
   {
     this.idProfesor=idProfesor;
     this.nombre = nombre;

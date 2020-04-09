@@ -9,7 +9,7 @@ class Estudiante {
   String genero;
   Acudiente acudiente;
 
-  Estudiante(id, nombre, apellido, fechaNacimiento, genero, acudiente) {
+  Estudiante(int id,String nombre,String apellido,String fechaNacimiento,String genero,Acudiente acudiente) {
     this.id = id;
     this.nombre = nombre;
     this.apellido = apellido;
