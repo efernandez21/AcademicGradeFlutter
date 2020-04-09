@@ -1,5 +1,6 @@
 import 'package:academic_grade/src/models/Actividad.dart';
 import 'package:academic_grade/src/models/Estudiante.dart';
+import 'package:academic_grade/src/models/Profesor.dart';
 
 class Curso {
   int grado;
@@ -7,9 +8,9 @@ class Curso {
   int capacidad;
   List<Estudiante> alumnos;
   List<Actividad> actividades;
-  String profesorTitular;
+  Profesor profesorTitular;
 
-  Curso(grado, grupo, capacidad, profesorTitular, alumnos, actividades) {
+  Curso(int grado,String grupo, int capacidad,Profesor profesorTitular,List<Estudiante> alumnos,List<Actividad> actividades) {
     this.grado = grado;
     this.grupo = grupo;
     this.capacidad = capacidad;

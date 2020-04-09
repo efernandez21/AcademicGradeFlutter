@@ -3,7 +3,7 @@ class Mensaje {
   String fechaEnvio;
   String emisor;
 
-  Mensaje(cuerpo, emisor) {
+  Mensaje(String cuerpo,String emisor) {
     this.cuerpo = cuerpo;
     this.fechaEnvio =  DateTime.now().toString();
     this.emisor = emisor;
