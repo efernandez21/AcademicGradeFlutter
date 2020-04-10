@@ -1,3 +1,5 @@
+
+import 'package:academic_grade/src/pages/asignatura_page.dart';
 import 'package:academic_grade/src/pages/calendario_page.dart';
 import 'package:flutter/material.dart';
 //Importaciones paginas
@@ -5,7 +7,6 @@ import 'package:academic_grade/src/pages/home_page.dart';
 import 'package:academic_grade/src/pages/user_page.dart';
 import 'package:academic_grade/src/pages/asignaturas_page.dart';
 import 'package:academic_grade/src/pages/buzon_page.dart';
-import 'package:academic_grade/src/pages/asignatura_page.dart';
  
 void main() => runApp(MyApp());
  
