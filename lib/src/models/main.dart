@@ -1,6 +1,6 @@
 
 
-import 'package:academic_grade/src/models/Actividad.dart';
+import 'package:academic_grade/src/models/Actividad_model.dart';
 import 'package:academic_grade/src/models/Acudiente.dart';
 import 'package:academic_grade/src/models/Asignatura.dart';
 import 'package:academic_grade/src/models/Curso.dart';
