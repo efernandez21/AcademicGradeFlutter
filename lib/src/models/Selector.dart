@@ -68,7 +68,7 @@ class Selector {
       for(int j=0;j<curso.actividades.length;j++)
       {
         Actividad actividad = curso.actividades[j];
-        Mensaje mensaje = new Mensaje(actividad.descripcion,curso.profesorTitular.nombre);
+        Mensaje mensaje = new Mensaje(j+1,actividad.descripcion,curso.profesorTitular.nombre);
         mensajes.add(mensaje);
        
       }

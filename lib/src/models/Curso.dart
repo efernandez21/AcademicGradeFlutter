@@ -3,6 +3,7 @@ import 'package:academic_grade/src/models/Estudiante.dart';
 import 'package:academic_grade/src/models/Profesor.dart';
 
 class Curso {
+  int idCurso;
   int grado;
   String grupo;
   int capacidad;
@@ -10,7 +11,8 @@ class Curso {
   List<Actividad> actividades;
   Profesor profesorTitular;
 
-  Curso(int grado,String grupo, int capacidad,Profesor profesorTitular,List<Estudiante> alumnos,List<Actividad> actividades) {
+  Curso(int id,int grado,String grupo, int capacidad,Profesor profesorTitular,List<Estudiante> alumnos,List<Actividad> actividades) {
+    this.idCurso = id;
     this.grado = grado;
     this.grupo = grupo;
     this.capacidad = capacidad;
@@ -18,8 +20,16 @@ class Curso {
     this.alumnos = alumnos;
     this.actividades = actividades;
   }
-  void agregarAlumno(Estudiante estudiante) {
-    this.alumnos.add(estudiante);
+  void agregarAlumno(List<Estudiante> estudiantes) {
+    for(int i=0;i<estudiantes.length;i++)
+    {
+      Estudiante estudiante = estudiantes[i];
+      if(estudiante.curso.idCurso==this.idCurso)
+      {
+        this.alumnos.add(estudiante);
+      }
+    }
+    
   }
   String toString(){
     return "Curso:"+grado.toString()+"-"+grupo;

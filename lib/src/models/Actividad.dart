@@ -1,9 +1,11 @@
 import 'package:academic_grade/src/models/Asignatura.dart';
 
 class Actividad {
+  int idActividad;
   String descripcion;
   String fechaEntrega;
   Asignatura asignatura;
+
 
   Actividad(String descripcion, String fechaEntrega,Asignatura asignatura) {
     this.descripcion = descripcion;
