@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //Propiedades de este stataful widget
-  String _opcionSeleccionada = 'Estudiante';
+  String _opcionSeleccionada = 'Profesor';
 
   List<String> _usuarios = ['Estudiante', 'Profesor','Acudiente'];
 
@@ -80,7 +80,10 @@ class _HomePageState extends State<HomePage> {
       color: Theme.of(context).primaryColor,
       textColor: Colors.white,
       onPressed: () {
-        Navigator.pushReplacementNamed(context, 'user',arguments: _opcionSeleccionada);
+        //Nos redirigira a la pagina seleccionada en este caso si es un profesor o es un estudiante
+        print(_opcionSeleccionada.toLowerCase());
+        // Navigator.pushNamed(context, _opcionSeleccionada.toLowerCase());
+        Navigator.pushReplacementNamed(context, _opcionSeleccionada.toLowerCase(),arguments: _opcionSeleccionada);
       },
     );
   }

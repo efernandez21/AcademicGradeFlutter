@@ -29,11 +29,11 @@ main(){
   Estudiante e5 = new Estudiante(5,"Andrea","Martinez","21-04-2009","Femenino",ac2);
   Estudiante e6 = new Estudiante(6,"Daniela","Martinez","19-12-2013","Femenino",ac3);
   //Actividades asignadas agregadas en firebase
-  Actividad act1 = new Actividad("realizar ejercicios de triangulos","2020-04-15",as1);
-  Actividad act2 = new Actividad("realizar ejercicios de cuadrados","2020-04-16",as2);
-  Actividad act3 = new Actividad("realizar ejercicios de metros","2020-04-17",as3);
-  Actividad act4 = new Actividad("dibujar la celula animal","2020-04-18",as2);
-  Actividad act5 = new Actividad("dibujar mapa de colombia","2020-04-21",as1);
+  // Actividad act1 = new Actividad("realizar ejercicios de triangulos","2020-04-15",as1);
+  // Actividad act2 = new Actividad("realizar ejercicios de cuadrados","2020-04-16",as2);
+  // Actividad act3 = new Actividad("realizar ejercicios de metros","2020-04-17",as3);
+  // Actividad act4 = new Actividad("dibujar la celula animal","2020-04-18",as2);
+  // Actividad act5 = new Actividad("dibujar mapa de colombia","2020-04-21",as1);
 
   List<Estudiante> alumnosc1 = new List();
   List<Actividad> actividadc1 = new List();
@@ -50,12 +50,12 @@ main(){
   c2.agregarAlumno(e4);
   c2.agregarAlumno(e6);
 
-  c1.asignarActividad(act1);
-  c1.asignarActividad(act2);
-  c1.asignarActividad(act4);
+  // c1.asignarActividad(act1);
+  // c1.asignarActividad(act2);
+  // c1.asignarActividad(act4);
 
-  c2.asignarActividad(act3);
-  c2.asignarActividad(act5);
+  // c2.asignarActividad(act3);
+  // c2.asignarActividad(act5);
   
   List<Curso> cc1 = new List();
   cc1.add(c1);
