@@ -1,9 +1,10 @@
 class Mensaje {
+  int idMensaje;
   String cuerpo;
   String fechaEnvio;
   String emisor;
 
-  Mensaje(String cuerpo,String emisor) {
+  Mensaje(int idMensaje,String cuerpo,String emisor) {
     this.cuerpo = cuerpo;
     this.fechaEnvio =  DateTime.now().toString();
     this.emisor = emisor;

@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   //Propiedades de este stataful widget
   String _opcionSeleccionada = 'Profesor';
 
-  List<String> _usuarios = ['Estudiante', 'Profesor','Acudiente'];
+  List<String> _usuarios = ['Profesor','Acudiente'];
 
   @override
   Widget build(BuildContext context) {
