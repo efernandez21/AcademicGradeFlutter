@@ -18,3 +18,19 @@ int idMateriaSeleccionada(List<Asignatura> asignaturas, String asignaturaSelecci
   //Retornamos el id de la asignatura
   return index;
 }
+
+List<String> encontrarRuta(String texto){
+  var ruta = texto.split(" ");
+  // print(ruta);
+  return ruta;
+}
+int buscarElemento(List<dynamic> usuario, List<String> lista ){
+  int index;
+  for (var i = 0; i < usuario.length; i++) {
+    if(usuario[i].nombre == lista[1]){
+      index = i;
+    }
+  }
+  
+  return index;
+}

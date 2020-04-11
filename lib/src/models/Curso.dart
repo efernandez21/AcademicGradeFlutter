@@ -1,48 +1,41 @@
-import 'package:academic_grade/src/models/Actividad_model.dart';
-import 'package:academic_grade/src/models/Estudiante.dart';
-import 'package:academic_grade/src/models/Profesor.dart';
+// To parse this JSON data, do
+//
+//     final curso = cursoFromJson(jsonString);
+
+import 'dart:convert';
+
+Curso cursoFromJson(String str) => Curso.fromJson(json.decode(str));
+
+String cursoToJson(Curso data) => json.encode(data.toJson());
 
 class Curso {
-  int idCurso;
-  int grado;
-  String grupo;
-  int capacidad;
-  List<Estudiante> alumnos;
-  List<Actividad> actividades;
-  Profesor profesorTitular;
+    int grado;
+    String grupo;
+    int capacidad;
+    int idcurso;
+    int idprofesor;
 
-  Curso(int id,int grado,String grupo, int capacidad,Profesor profesorTitular,List<Estudiante> alumnos,List<Actividad> actividades) {
-    this.idCurso = id;
-    this.grado = grado;
-    this.grupo = grupo;
-    this.capacidad = capacidad;
-    this.profesorTitular = profesorTitular;
-    this.alumnos = alumnos;
-    this.actividades = actividades;
-  }
-  void agregarAlumno(List<Estudiante> estudiantes) {
-    for(int i=0;i<estudiantes.length;i++)
-    {
-      Estudiante estudiante = estudiantes[i];
-      if(estudiante.curso.idCurso==this.idCurso)
-      {
-        this.alumnos.add(estudiante);
-      }
-    }
-    
-  }
-  String toString(){
-    return "Curso:"+grado.toString()+"-"+grupo;
-  }
+    Curso({
+        this.grado,
+        this.grupo,
+        this.capacidad,
+        this.idcurso,
+        this.idprofesor,
+    });
 
-  void asignarActividad(Actividad actividad) {
-    this.actividades.add(actividad);
-    
-  }
-  
-  
-      
+    factory Curso.fromJson(Map<String, dynamic> json) => Curso(
+        grado: json["grado"],
+        grupo: json["grupo"],
+        capacidad: json["capacidad"],
+        idcurso: json["idcurso"],
+        idprofesor: json["idprofesor"],
+    );
 
-
-
-  }
+    Map<String, dynamic> toJson() => {
+        "grado": grado,
+        "grupo": grupo,
+        "capacidad": capacidad,
+        "idcurso": idcurso,
+        "idprofesor": idprofesor,
+    };
+}

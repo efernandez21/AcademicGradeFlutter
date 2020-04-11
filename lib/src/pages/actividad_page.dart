@@ -185,7 +185,7 @@ class _ActividadPageState extends State<ActividadPage> {
     //Hemos terminado de guardar pero bloquearemos el boton en este caso para no tener problemas mas adelante
     // setState(() { _guardando = false; });
     mostrarSnackbar('Registro Guardado');
-    //Salimos de la pagina
+    //Salimos de la pagina actual
     // Navigator.pop(context);
   }
   //Metodo para trabajar con un SnackBar, a la que le pasaremos un mensaje, hay que tener en cuenta que para representarlo se necesita el Scaffold para poder mostrarlo

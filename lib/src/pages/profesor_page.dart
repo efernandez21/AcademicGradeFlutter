@@ -1,3 +1,4 @@
+import 'package:academic_grade/src/models/Profesor_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfesorPage extends StatelessWidget {
@@ -5,7 +6,8 @@ class ProfesorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String _usuario = ModalRoute.of(context).settings.arguments;
+    Profesor _usuario;
+    _usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       body: SafeArea(
@@ -20,23 +22,23 @@ class ProfesorPage extends StatelessWidget {
                   decoration:
                       BoxDecoration(
                         border: Border.all(
-                          color: Colors.blue
+                          color: Colors.green
                         ),
-                        color: Colors.blue
+                        color: Colors.green
                       ),
                   child: ListTile(
                     title: Text(
-                      'Bienvenido Fabio',
+                      'Bienvenido ${_usuario.nombre} ${_usuario.apellido}',
                       style:
                           TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(_usuario),
+                    subtitle: Text('Profesor'),
                     trailing:
                         Image(
                           image: AssetImage('assets/img/profesor1.png')
                         ),
                     onTap: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     },
                   )
               ),
