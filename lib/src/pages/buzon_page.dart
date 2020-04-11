@@ -20,8 +20,12 @@ class _BuzonPageState extends State<BuzonPage> {
         title: Text('Bandeja de Entrada'),
       ),
       drawer: MenuDrawer(),
-      body: Center(
-        child:Text('Buzon Page')
+      body: ListView.builder(
+        padding: EdgeInsets.all(10),
+        itemCount: 8,
+        itemBuilder: (BuildContext context,int index){
+          return _verMensajes();
+        },
       ),
       bottomNavigationBar: _crearBottomNavigationBar(),
       floatingActionButton: FloatingActionButton(
@@ -60,6 +64,21 @@ class _BuzonPageState extends State<BuzonPage> {
       
       },
     );
+
+  }
+  Widget _verMensajes(){
+    return  Card(
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.message),
+            title: Text("Asunto del Mensaje"),
+            subtitle: Text("Cuerpo del Mensaje"),
+          )
+        ],
+      ),
+    );
+
 
   }
 
