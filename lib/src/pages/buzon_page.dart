@@ -1,5 +1,7 @@
+import 'package:academic_grade/src/models/Mensaje.dart';
 import 'package:flutter/material.dart';
 import 'package:academic_grade/src/widgets/menu_drawer.dart';
+import 'package:academic_grade/src/providers/mensaje_provider.dart';
 
 class BuzonPage extends StatefulWidget {
   @override
@@ -8,6 +10,7 @@ class BuzonPage extends StatefulWidget {
 
 class _BuzonPageState extends State<BuzonPage> {
   //Variable de la ubicacion actual
+  final mensajeProvider = new MensajeProvider() ;
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class _BuzonPageState extends State<BuzonPage> {
         padding: EdgeInsets.all(10),
         itemCount: 8,
         itemBuilder: (BuildContext context,int index){
-          return _verMensajes();
+          return _crearListado();
         },
       ),
       bottomNavigationBar: _crearBottomNavigationBar(),
@@ -66,14 +69,39 @@ class _BuzonPageState extends State<BuzonPage> {
     );
 
   }
-  Widget _verMensajes(){
+    Widget _crearListado(){
+    //En este caso es un futureBuilder, tenemos que enviarle los datos que recibira por parte de un metodo future builder
+    return FutureBuilder(
+      future: mensajeProvider.cargarMensajes(),
+      builder: (BuildContext context, AsyncSnapshot<List<Mensaje>> snapshot) {
+        //Condicionamos el retorno en este caso si hemos obtenido datos
+        if(snapshot.hasData){
+          //Variable que almacena los datos
+          final mensajes = snapshot.data;
+
+          //asignamos la creacion del item en un metodo, y le mandamos el producto que es una instancia de mi model
+          return ListView.builder(
+            itemCount: mensajes.length,
+            itemBuilder: (context,index) =>_verMensaje(context,mensajes[index])
+          );
+
+        } else{
+          
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+  Widget _verMensaje(BuildContext context,Mensaje mensaje){
     return  Card(
       child: Column(
         children: <Widget>[
           ListTile(
             leading: Icon(Icons.message),
-            title: Text("Asunto del Mensaje"),
-            subtitle: Text("Cuerpo del Mensaje"),
+            title: Text('${ mensaje.asunto} '),
+            subtitle: Text("${mensaje.cuerpo}"),
           )
         ],
       ),
@@ -81,6 +109,5 @@ class _BuzonPageState extends State<BuzonPage> {
 
 
   }
-
   
 }
