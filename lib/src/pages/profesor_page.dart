@@ -2,11 +2,11 @@ import 'package:academic_grade/src/models/Profesor_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfesorPage extends StatelessWidget {
-  
+  //Declaracion global
+  Profesor _usuario;
 
   @override
   Widget build(BuildContext context) {
-    Profesor _usuario;
     _usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
@@ -139,7 +139,7 @@ class ProfesorPage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         //Navegando por las demas pantallas
-        Navigator.pushNamed(context, ruta);
+        Navigator.pushNamed(context, ruta, arguments: _usuario);
       },
       child: Container(
         padding: EdgeInsets.all(20.0),
