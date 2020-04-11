@@ -1,3 +1,4 @@
+import 'package:academic_grade/src/pages/hijos_page.dart';
 import 'package:flutter/material.dart';
 //Importaciones paginas
 import 'package:academic_grade/src/pages/actividades_programadas.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Academic Grades',
       debugShowCheckedModeBanner: false,
-      initialRoute: 'calendario',
+      initialRoute: 'home',
       routes: {
         'home'           : (BuildContext context ) => HomePage(),
         'user'           : (BuildContext context ) => UserPage(),
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         'acudiente'      : (BuildContext context ) => AcudientePage(),
         'actividad'      : (BuildContext context ) => ActividadPage(),
         'programadas'    : (BuildContext context ) => ActividadesProgramadasPage(),
+        'hijos'          : (BuildContext context ) => HijosPage(),
         
       },
       theme: ThemeData(

@@ -14,7 +14,13 @@ class ActividadesProgramadasPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title:Text('Actividades Programadas')
+        title:Text('Actividades Programadas'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.calendar_today), 
+            onPressed: ()=> Navigator.pushNamed(context, 'calendario'),
+          )
+        ],
       ),
       body: _crearListado(),
       // floatingActionButton: _crearBoton(context),
@@ -69,7 +75,7 @@ class ActividadesProgramadasPage extends StatelessWidget {
                 title: Text('${ actividad.descripcion} '),
                 subtitle: Text('Fecha limite de entrega:'+actividad.fecha),
                 //Pasamos a la otra pantalla y le entregamos el producto completo
-                // onTap: () => Navigator.pushNamed(context, 'producto', arguments: actividad),
+                // onTap: () => Navigator.pushNamed(context, 'actividad', arguments: actividad),
               ),
 
           ],

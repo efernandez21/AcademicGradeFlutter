@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 class AcudientePage extends StatelessWidget {
   
+  Acudiente _usuario;
+  
   @override
   Widget build(BuildContext context) {
     //Obtenido pantalla anterior
-    Acudiente _usuario;
     _usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
@@ -126,9 +127,9 @@ class AcudientePage extends StatelessWidget {
         children: <Widget>[
           SizedBox(height: 10.0,),
           //Primera opcion
-          _opcionMenu('assets/img/libro.png','Consultar Actividades', 'actividad',context),
+          _opcionMenu('assets/img/familia.png','Administrar Hijos', 'hijos',context),
           SizedBox(height: 10.0,),
-          _opcionMenu('assets/img/calendario.png','Consultar Calendario', 'calendario',context),
+          _opcionMenu('assets/img/calendario.png','Actividades en Calendario', 'calendario',context),
           SizedBox(height: 10.0,),
           _opcionMenu('assets/img/mensaje.png','Revisar Notificaciones', 'mensajeria',context),
         ],
@@ -139,7 +140,7 @@ class AcudientePage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         //Navegando por las demas pantallas
-        Navigator.pushNamed(context, ruta);
+        Navigator.pushNamed(context, ruta, arguments: _usuario);
       },
       child: Container(
         padding: EdgeInsets.all(20.0),
