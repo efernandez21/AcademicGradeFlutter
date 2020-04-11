@@ -2,14 +2,17 @@ import 'package:academic_grade/src/models/Profesor_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfesorPage extends StatelessWidget {
-  
+  //Declaracion global
+  Profesor _usuario;
 
   @override
   Widget build(BuildContext context) {
-    Profesor _usuario;
     _usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      // appBar: AppBar(
+      //   title: _crearAppbar(_usuario.nombre),
+      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           //Columna general
@@ -128,9 +131,12 @@ class ProfesorPage extends StatelessWidget {
           //Primera opcion
           _opcionMenu('assets/img/libro.png','Crear Actividades', 'actividad',context),
           SizedBox(height: 10.0,),
-          _opcionMenu('assets/img/calendario.png','Consultar Calendario', 'calendario',context),
+          // _opcionMenu('assets/img/calendario.png','Consultar Calendario', 'calendario',context),
+          // SizedBox(height: 10.0,),
+          _opcionMenu('assets/img/calendario.png','Consultar Actividades', 'programadas',context),
           SizedBox(height: 10.0,),
           _opcionMenu('assets/img/mensaje.png','Enviar Notificaciones', 'mensajeria',context),
+          SizedBox(height: 60.0,),
         ],
       ),
     );
@@ -139,7 +145,7 @@ class ProfesorPage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         //Navegando por las demas pantallas
-        Navigator.pushNamed(context, ruta);
+        Navigator.pushNamed(context, ruta, arguments: _usuario);
       },
       child: Container(
         padding: EdgeInsets.all(20.0),

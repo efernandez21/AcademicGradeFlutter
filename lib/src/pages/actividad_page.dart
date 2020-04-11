@@ -1,3 +1,5 @@
+import 'package:academic_grade/src/models/Profesor_model.dart';
+import 'package:academic_grade/src/providers/curso_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:academic_grade/src/utils/utils.dart' as utils;
@@ -14,6 +16,8 @@ class ActividadPage extends StatefulWidget {
 }
 
 class _ActividadPageState extends State<ActividadPage> {
+  // declaracion del usuario de la pantalla
+   Profesor _usuario;
   //Clave global del formulario para manejar 
   final formKey = GlobalKey<FormState>();
   //Clave global del scaffold 
@@ -21,6 +25,7 @@ class _ActividadPageState extends State<ActividadPage> {
   //Llamamos los provider de mis modelos
   final actividadProvider = new ActividadesProvider();
   final asignaturaProvider = new AsignaturaProvider();
+  final cursoProvider = new CursoProvider();
   //Llamado a mi modelo
   Actividad actividad = new Actividad();
   String _opcionSeleccionada = "Matematicas";
@@ -30,6 +35,8 @@ class _ActividadPageState extends State<ActividadPage> {
 
   @override
   Widget build(BuildContext context) {
+    //recibimos los datos de la pantalla anterior
+    _usuario = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -177,7 +184,19 @@ class _ActividadPageState extends State<ActividadPage> {
     //Condicionamos la creacion o actualizacion de un producto
     if (actividad.idactividad == null) {
       //Creamos la actividad
+      String act;
+      int curso;
+      //asignacion del creador de la actividad
+      actividad.idprofesor = _usuario.id;
+      //creada la actividad
       actividadProvider.crearActividad(actividad);
+      //obtenemos el curso pasandole el identificador del profesor
+      curso = await cursoProvider.obtenerCurso(_usuario.id);
+      act = await actividadProvider.obtenerActividad(_usuario.id, actividad.descripcion,actividad.idasignatura);
+      //creamos la actividad al curso
+      cursoProvider.crearActividadenCurso(act, curso);
+      
+
     } else {
       actividadProvider.editarActividad(actividad);
     }

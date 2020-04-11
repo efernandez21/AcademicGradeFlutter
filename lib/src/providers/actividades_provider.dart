@@ -26,7 +26,7 @@ class ActividadesProvider {
 
   }
   //Funcion de carga de actividades
-  Future<List<Actividad>> cargarAsignaturas() async{
+  Future<List<Actividad>> cargarActividades() async{
     //la url para hacer la solicitud
     final url = '$_url/actividades.json';
     //la respuesta de la peticion
@@ -73,6 +73,24 @@ class ActividadesProvider {
     print(decodedData);
     //implicitamente retorna un true
     return true;
+  }
+  //metodo para saber el id de la actividad asignada
+  Future<String> obtenerActividad(int identificacionProfesor, String descripcion, int asignatura) async{
+    //comprobamos
+    String codigoActividad = 'No encontrado';
+    //Declaramos la lista a cargar
+    List<Actividad> actividades = new List();
+    actividades = await cargarActividades();
+    //revisamos
+    actividades.forEach( (actividad){
+      //Condicion para atrapar el id del curso
+      if((actividad.idprofesor == identificacionProfesor)&& (actividad.descripcion == descripcion) && (actividad.idasignatura == asignatura)){
+        codigoActividad = actividad.idactividad;
+      }
+
+    });
+    //Este es el curso al que le dicta el profesor
+    return codigoActividad;
   }
 
 }

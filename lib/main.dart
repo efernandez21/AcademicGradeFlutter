@@ -1,5 +1,7 @@
+import 'package:academic_grade/src/pages/hijos_page.dart';
 import 'package:flutter/material.dart';
 //Importaciones paginas
+import 'package:academic_grade/src/pages/actividades_programadas.dart';
 import 'package:academic_grade/src/pages/home_page.dart';
 import 'package:academic_grade/src/pages/user_page.dart';
 import 'package:academic_grade/src/pages/asignaturas_page.dart';
@@ -29,6 +31,8 @@ class MyApp extends StatelessWidget {
         'profesor'       : (BuildContext context ) => ProfesorPage(),
         'acudiente'      : (BuildContext context ) => AcudientePage(),
         'actividad'      : (BuildContext context ) => ActividadPage(),
+        'programadas'    : (BuildContext context ) => ActividadesProgramadasPage(),
+        'hijos'          : (BuildContext context ) => HijosPage(),
         
       },
       theme: ThemeData(
