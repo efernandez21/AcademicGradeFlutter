@@ -28,7 +28,7 @@ class Actividad {
     );
 
     Map<String, dynamic> toJson() => {
-        "idactividad": idactividad,
+        // "idactividad": idactividad,
         "descripcion": descripcion,
         "fecha": fecha,
         "idasignatura": idasignatura,

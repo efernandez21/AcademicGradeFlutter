@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:academic_grade/src/utils/utils.dart' as utils;
+
+import 'package:academic_grade/src/models/Actividad_model.dart';
+import 'package:academic_grade/src/models/Asignatura.dart';
+import 'package:academic_grade/src/providers/actividades_provider.dart';
+import 'package:academic_grade/src/providers/asignatura_provider.dart';
+
+
 class ActividadPage extends StatefulWidget {
   @override
   _ActividadPageState createState() => _ActividadPageState();
@@ -9,13 +17,21 @@ class _ActividadPageState extends State<ActividadPage> {
   //Clave global del formulario para manejar 
   final formKey = GlobalKey<FormState>();
   //Clave global del scaffold 
-  // final scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _disponibilidad = false;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  //Llamamos los provider de mis modelos
+  final actividadProvider = new ActividadesProvider();
+  final asignaturaProvider = new AsignaturaProvider();
+  //Llamado a mi modelo
+  Actividad actividad = new Actividad();
+  String _opcionSeleccionada = "Matematicas";
+  int _materiaSeleccionada = 1;
+  //Variable booleana para indicar el guardado de una aplicacion
+  bool _guardando = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // key: formKey,
+      key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         title: Text('Nueva Actividad'),
@@ -31,8 +47,11 @@ class _ActividadPageState extends State<ActividadPage> {
               children: <Widget>[
                 _mostrarFoto(),
                 _crearFecha(),
+                SizedBox(height: 15.0),
                 _crearDescripcion(),
-                _crearDisponible(),
+                SizedBox(height: 15.0),
+                _crearDropdown(),
+                SizedBox(height: 15.0),
                 _crearBoton()
               ],
             ),
@@ -48,18 +67,11 @@ class _ActividadPageState extends State<ActividadPage> {
       // initialValue: producto.titulo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Fecha de entrega'
+        labelText: 'Fecha de entrega',
+        hintText: 'Ingrese una fecha en formato dd/mm/aaaa'
       ),
-      // onSaved: ( value ) => producto.titulo = value,
+      onSaved: ( value ) => actividad.fecha = value,
       //Se puede hacer la validacion del campo del formulario en este caso se recibe un String
-      validator: (value) {
-        //Presentamos la condicion de longitud, si retornamos un String se entiende entonces que tenemos un error, si el retorno es un null, todo bien con mi campo del formulario
-        if(value.length <3){
-          return 'Ingrese el Nombre del Producto';
-        } else{
-          return null;
-        }
-      },
     );
 
   }
@@ -69,34 +81,68 @@ class _ActividadPageState extends State<ActividadPage> {
     return TextFormField(
       // initialValue: producto.valor.toString(),
       //Indicamos el tipo de texto que se obtendra en la casilla, en este caso un numero con opciones de decimal, para los teclados numericos que vienen sin un punto
-      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      textCapitalization: TextCapitalization.sentences,
+      maxLines: 6,
       decoration: InputDecoration(
-        labelText: 'Descripción de la actividad'
+        labelText: 'Descripción de la actividad',
+        hintText: 'Escriba la instruccion a realizar en la actividad sea especifico, si lo desea, si lo desea coloque una imagen',
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.zero)
+        )
       ),
-      // onSaved: ( value ) => producto.valor = double.parse(value),
-      // validator: ( value ){
-      //   //usamos el metodo creado en utils, para comprobar si es numerico
-      //   if ( utils.isNumeric(value) ){
-      //     return null;
-      //   } else{
-      //     return 'Sólo números';
-      //   }
-
-      // },
+      onSaved: ( value ) => actividad.descripcion = value,
     );
 
   }
+  //Widget Dropdown para las materias
+  Widget _crearDropdown() {
+    return FutureBuilder(
+      future: asignaturaProvider.cargarAsignaturas(),
+      builder: (BuildContext context, AsyncSnapshot<List<Asignatura>> snapshot) {
+        //Si tenemos los datos retornamos la barra si no
+        if (snapshot.hasData) {
+          final asignaturas = snapshot.data;
+          return DropdownButtonFormField(
+            decoration: InputDecoration(
+              labelText: "Seleccione la materia:",
+              labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+              helperText: "Materia a la que pertenecera la actividad"
+            ),
+            items: getOpcionesDropdown(asignaturas),
+            value: _opcionSeleccionada, 
+            onChanged: (opcion){
+              setState(() {
+                //Agregamos la opcion y obtenemos el id
+                _opcionSeleccionada = opcion;
+                _materiaSeleccionada = utils.idMateriaSeleccionada( asignaturas, _opcionSeleccionada);
+                // print(_materiaSeleccionada);
+              });
+            },
+            onSaved: (value) => actividad.idasignatura = _materiaSeleccionada,
+          );
 
-  Widget _crearDisponible(){
-    //Switch que me indica la disponibilidad del producto
-    return SwitchListTile(
-      value: _disponibilidad,
-      title: Text('Disponible'), 
-      activeColor: Theme.of(context).primaryColor,
-      onChanged: ( value ) => setState((){
-        _disponibilidad = value;
-      }),
+        } else {
+          return Text("Seleccione la Materia correspondiente");
+        }
+
+      },
     );
+  }
+  //La lista
+  List<DropdownMenuItem<String>> getOpcionesDropdown(List<Asignatura> asignaturas) {
+    //Declaramos una lista de Strings
+    List<DropdownMenuItem<String>> lista = new List();
+    //Revisamos la asignatura
+    asignaturas.forEach( (asignatura){
+      //Agregamos a mi lista de Strings el DropdownIten
+      lista.add( DropdownMenuItem(
+        child: Text(asignatura.nombre),
+        value: asignatura.nombre,
+      ));
+
+      
+    });
+    return lista;
 
   }
 
@@ -110,7 +156,7 @@ class _ActividadPageState extends State<ActividadPage> {
       textColor: Colors.white,
       label: Text('Guardar'),
       icon: Icon(Icons.save),
-      onPressed: (){},
+      onPressed: (_guardando)? null :  _submit,
     );
   }
   //Funcion de guardado de la informacion
@@ -118,17 +164,29 @@ class _ActividadPageState extends State<ActividadPage> {
 
     //Usamos la llave del formulario para combrobar su estado actual de validacion, en este caso para permitir el envio d informacion, usamos una condicion falsa para que en este caso no entre a mi submit, o por asi decirlo no envie
     //Si no es verdadero entonces returne
-    if( !formKey.currentState.validate() ) return;
-    //Para controlar que se pueda ejecutar los saves del formulario tenemos que invocar su estado actual y ejecutar luego el save, asi tomaremos los valores colocados en los textformfile
+    // if( !formKey.currentState.validate() ) return;
+    // //Para controlar que se pueda ejecutar los saves del formulario tenemos que invocar su estado actual y ejecutar luego el save, asi tomaremos los valores colocados en los textformfile
     formKey.currentState.save();
+    // print("================");
+    // print(actividad.descripcion);
+    // print(actividad.fecha);
+    // print(actividad.idasignatura);
+    // print("================");
     //ESTAMOS GUARDANDO
-    
+    setState(() { _guardando = true; });
+    //Condicionamos la creacion o actualizacion de un producto
+    if (actividad.idactividad == null) {
+      //Creamos la actividad
+      actividadProvider.crearActividad(actividad);
+    } else {
+      actividadProvider.editarActividad(actividad);
+    }
     
     //Hemos terminado de guardar pero bloquearemos el boton en este caso para no tener problemas mas adelante
     // setState(() { _guardando = false; });
     mostrarSnackbar('Registro Guardado');
-    //Salimos de la pagina
-    Navigator.pop(context);
+    //Salimos de la pagina actual
+    // Navigator.pop(context);
   }
   //Metodo para trabajar con un SnackBar, a la que le pasaremos un mensaje, hay que tener en cuenta que para representarlo se necesita el Scaffold para poder mostrarlo
   void mostrarSnackbar(String mensaje) {
@@ -144,10 +202,10 @@ class _ActividadPageState extends State<ActividadPage> {
         textAlign: TextAlign.center,
       ),
       backgroundColor: Colors.green,
-      duration: Duration( milliseconds: 1500),
+      duration: Duration( milliseconds: 2500),
     );
     //llamamos o mostramos el sncakbar
-    // scaffoldKey.currentState.showSnackBar(snackbar);
+    scaffoldKey.currentState.showSnackBar(snackbar);
   }
   //Widget que mostrara la foto en la pantalla del producto
   Widget _mostrarFoto() {

@@ -1,11 +1,14 @@
+import 'package:academic_grade/src/models/Acudiente.dart';
 import 'package:flutter/material.dart';
 
 class AcudientePage extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    //Obtenido de la pantalla anterior
-    final String _usuario = ModalRoute.of(context).settings.arguments;
+    //Obtenido pantalla anterior
+    Acudiente _usuario;
+    _usuario = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -25,11 +28,11 @@ class AcudientePage extends StatelessWidget {
                       ),
                   child: ListTile(
                     title: Text(
-                      'Bienvenido Juan Perez',
+                      'Bienvenido ${_usuario.nombre} ${_usuario.apellido}',
                       style:
                           TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(_usuario),
+                    subtitle: Text('Acudiente'),
                     trailing:
                         Image(
                           image: AssetImage('assets/img/profesor1.png')

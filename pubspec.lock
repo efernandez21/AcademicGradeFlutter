@@ -88,6 +88,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.12.0+4"
+  http_parser:
+    dependency: "direct main"
+    description:
+      name: http_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.4"
   image:
     dependency: transitive
     description:
@@ -144,6 +158,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
+<<<<<<< HEAD
   simple_gesture_detector:
     dependency: transitive
     description:
@@ -151,6 +166,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4"
+=======
+  rxdart:
+    dependency: "direct main"
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.23.1"
+>>>>>>> ab6d925df24c30bc92229613e9f4b52cc8b54b93
   sky_engine:
     dependency: transitive
     description: flutter
@@ -234,5 +258,9 @@ packages:
     source: hosted
     version: "3.5.0"
 sdks:
+<<<<<<< HEAD
   dart: ">=2.5.0 <3.0.0"
+=======
+  dart: ">=2.6.0 <3.0.0"
+>>>>>>> ab6d925df24c30bc92229613e9f4b52cc8b54b93
   flutter: ">=0.1.4 <3.0.0"

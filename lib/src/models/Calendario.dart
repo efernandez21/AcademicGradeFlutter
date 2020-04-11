@@ -1,5 +1,7 @@
 
-import 'package:academic_grade/src/models/Actividad.dart';
+
+
+import 'package:academic_grade/src/models/Actividad_model.dart';
 
 class Calendario {
   int idCalendario;
