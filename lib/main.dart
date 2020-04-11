@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Academic Grades',
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home',
+      initialRoute: 'calendario',
       routes: {
         'home'           : (BuildContext context ) => HomePage(),
         'user'           : (BuildContext context ) => UserPage(),
