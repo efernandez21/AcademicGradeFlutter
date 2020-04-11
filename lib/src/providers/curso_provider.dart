@@ -7,7 +7,7 @@ import 'package:academic_grade/src/models/Curso.dart';
 
 class CursoProvider {
 
-  
+  List<String> idcursoactividad = new List();
   //direccion url de la base de datos de firebase
   final String _url = 'https://academicgrade-19c56.firebaseio.com';
 
@@ -50,6 +50,7 @@ class CursoProvider {
       //Convertimos los datos es una asignaruta
       final cursoActTemp = CursoActividad.fromJson(cursoAct);
       //Agregamos a la lista de asignaturas la temporal
+      idcursoactividad.add(id);
       cursoactividad.add(cursoActTemp);
     });
     // print(asignaturas);
@@ -106,6 +107,28 @@ class CursoProvider {
     //Si esto fue exitoso retornara true
     return true;
 
+  }
+   //Eliminar Actividad del curso
+  Future<int> eliminarActividadCurso( String idactividad ) async{
+    //comprobamos en la lista de ids
+    String idelemento = 'noencontrado';
+    List<CursoActividad> cursoActividad;
+    cursoActividad = await cargarCursosActividades();
+    //metodo de eliminacion
+    for (var i = 0; i < cursoActividad.length; i++) {
+      if(cursoActividad[i].idactividad == idactividad){
+        idelemento = idcursoactividad[i];
+      }
+    }
+
+    //Armamos la url
+    final url = '$_url/cursoactividad/$idelemento.json';
+    //Peticion de eliminacion
+    final resp = await http.delete(url);
+    //la resp sera en este caso null debido a que fue completamente exitoso el proceso de eliminacion, nos retornaria algo si no fue asi.
+    print( resp.body);
+    //El retorno de la actividad eliminada
+    return 1;
   }
 
 

@@ -188,6 +188,7 @@ class _ActividadPageState extends State<ActividadPage> {
       int curso;
       //asignacion del creador de la actividad
       actividad.idprofesor = _usuario.id;
+      //creada la actividad
       actividadProvider.crearActividad(actividad);
       //obtenemos el curso pasandole el identificador del profesor
       curso = await cursoProvider.obtenerCurso(_usuario.id);

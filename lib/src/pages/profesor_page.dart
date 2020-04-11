@@ -10,6 +10,9 @@ class ProfesorPage extends StatelessWidget {
     _usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      // appBar: AppBar(
+      //   title: _crearAppbar(_usuario.nombre),
+      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           //Columna general
@@ -128,9 +131,12 @@ class ProfesorPage extends StatelessWidget {
           //Primera opcion
           _opcionMenu('assets/img/libro.png','Crear Actividades', 'actividad',context),
           SizedBox(height: 10.0,),
-          _opcionMenu('assets/img/calendario.png','Consultar Calendario', 'calendario',context),
+          // _opcionMenu('assets/img/calendario.png','Consultar Calendario', 'calendario',context),
+          // SizedBox(height: 10.0,),
+          _opcionMenu('assets/img/calendario.png','Consultar Actividades', 'programadas',context),
           SizedBox(height: 10.0,),
           _opcionMenu('assets/img/mensaje.png','Enviar Notificaciones', 'mensajeria',context),
+          SizedBox(height: 60.0,),
         ],
       ),
     );
