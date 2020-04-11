@@ -76,21 +76,6 @@ class CursoProvider {
     return idcurso;
 
   }
-  //Metodo para guardar en cursoActividad
-  //Funcion de crearActividad en el curso con el parametro curso actividad
-  // Future<bool> crearActividadenCurso( CursoActividad cursoActividad ) async {
-    
-  //   final url = '$_url/cursoactividad.json';
-
-  //   final resp = await http.post( url, body: cursoActividadToJson(cursoActividad) );
-
-  //   final decodedData = json.decode(resp.body);
-
-  //   print( decodedData );
-  //   //Si esto fue exitoso retornara true
-  //   return true;
-
-  // }
   //Crear actividad al curso pasando parametros
   Future<bool> crearActividadenCurso(String codigoActividad, int codigocurso ) async {
     
@@ -130,7 +115,22 @@ class CursoProvider {
     //El retorno de la actividad eliminada
     return 1;
   }
+  //Cargar informacion del curso pasado un codigo de curso
+  Future<Curso> consultarCurso(int identificador) async{
+    Curso cursoActual = new Curso();
+    List<Curso> cursosRevision = new List();
+    //Cargados los cursos
+    cursosRevision = await cargarCursos();
 
+    cursosRevision.forEach((curso){
+      //Revisar y pasar por la condicion
+      if (curso.idcurso == identificador) {
+        cursoActual = curso;
+      }
+    });
+    //retornamos el curso seleccionado
+    return cursoActual;
+  }
 
 
 }

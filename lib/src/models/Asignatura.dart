@@ -27,3 +27,4 @@ class Asignatura {
         "nombre": nombre,
     };
 }
+

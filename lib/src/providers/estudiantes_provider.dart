@@ -8,7 +8,7 @@ class EstudianteProvider {
   final String _url = 'https://academicgrade-19c56.firebaseio.com';
 
   //Metodo para cargar informacion de las asignaturas
-  Future<List<Estudiante>> cargarHijos() async{
+  Future<List<Estudiante>> cargarHijos(int idpadre) async{
     //la url para hacer la solicitud
     final url = '$_url/estudiantes.json';
     //la respuesta de la peticion
@@ -23,8 +23,10 @@ class EstudianteProvider {
     decodedData.forEach((id, estudiante){
       //Convertimos los datos es una asignaruta
       final estudianteTemp = Estudiante.fromJson(estudiante);
-      //Agregamos a la lista de estudiantes la temporal
-      estudiantes.add(estudianteTemp);
+      if (estudianteTemp.idacudiente == idpadre) {
+        //Si esto es cierto es hijo de este por lo tanto lo agregamos a las lista
+        estudiantes.add(estudianteTemp);
+      }
     });
     // print(asignaturas);
     return estudiantes;

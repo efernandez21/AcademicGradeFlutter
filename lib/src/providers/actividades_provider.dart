@@ -64,7 +64,7 @@ class ActividadesProvider {
   //Editar Actividad, se retorna si se logro algo si o si
   Future<bool> editarActividad(Actividad actividad) async{
     //la url de la tabla o el lugar editar el producto
-    final url = '$_url/productos/${ actividad.idactividad}.json';
+    final url = '$_url/actividades/${actividad.idactividad}.json';
     //Peticion http en este caso, firebase me lo pide como un string, por eso invocamos el metodo productotoModelToJson para trabajar con la informacion a enviar, y lo mandamos dentro de un put de tal forma que actualizaremos a este
     final resp = await http.put(url,body: actividadToJson(actividad));
     //el decodedData me decodificara la respuesta obtenida luego de intentar subir los datos a firebase

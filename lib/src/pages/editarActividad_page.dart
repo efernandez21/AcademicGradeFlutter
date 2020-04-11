@@ -10,14 +10,13 @@ import 'package:academic_grade/src/providers/actividades_provider.dart';
 import 'package:academic_grade/src/providers/asignatura_provider.dart';
 
 
-class ActividadPage extends StatefulWidget {
+class EditarActividadPage extends StatefulWidget {
   @override
-  _ActividadPageState createState() => _ActividadPageState();
+  _EditarActividadPageState createState() => _EditarActividadPageState();
 }
 
-class _ActividadPageState extends State<ActividadPage> {
-  // declaracion del usuario de la pantalla
-   Profesor _usuario;
+class _EditarActividadPageState extends State<EditarActividadPage> {
+  Profesor profesor;
   //Clave global del formulario para manejar 
   final formKey = GlobalKey<FormState>();
   //Clave global del scaffold 
@@ -28,7 +27,7 @@ class _ActividadPageState extends State<ActividadPage> {
   final cursoProvider = new CursoProvider();
   //Llamado a mi modelo
   Actividad actividad = new Actividad();
-  String _opcionSeleccionada = "Matematicas";
+  String _opcionSeleccionada = "";
   int _materiaSeleccionada = 1;
   //Variable booleana para indicar el guardado de una aplicacion
   bool _guardando = false;
@@ -36,12 +35,16 @@ class _ActividadPageState extends State<ActividadPage> {
   @override
   Widget build(BuildContext context) {
     //recibimos los datos de la pantalla anterior
-    _usuario = ModalRoute.of(context).settings.arguments;
+    final Actividad actividadData = ModalRoute.of(context).settings.arguments;
+    if (actividadData != null) {
+      actividad = actividadData;
+    }
+
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Nueva Actividad'),
+        title: Text('editar Actividad'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -72,6 +75,7 @@ class _ActividadPageState extends State<ActividadPage> {
     //Retornamos un TextFormField, trabaja directamente con un formulario
     return TextFormField(
       // initialValue: producto.titulo,
+      initialValue: actividad.fecha,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Fecha de entrega',
@@ -88,6 +92,7 @@ class _ActividadPageState extends State<ActividadPage> {
     return TextFormField(
       // initialValue: producto.valor.toString(),
       //Indicamos el tipo de texto que se obtendra en la casilla, en este caso un numero con opciones de decimal, para los teclados numericos que vienen sin un punto
+      initialValue: actividad.descripcion,
       textCapitalization: TextCapitalization.sentences,
       maxLines: 6,
       decoration: InputDecoration(
@@ -109,6 +114,7 @@ class _ActividadPageState extends State<ActividadPage> {
         //Si tenemos los datos retornamos la barra si no
         if (snapshot.hasData) {
           final asignaturas = snapshot.data;
+          _opcionSeleccionada = utils.obtenerStringMateria(asignaturas, actividad.idasignatura);
           return DropdownButtonFormField(
             decoration: InputDecoration(
               labelText: "Seleccione la materia:",
@@ -161,7 +167,7 @@ class _ActividadPageState extends State<ActividadPage> {
       ),
       color: Theme.of(context).primaryColor,
       textColor: Colors.white,
-      label: Text('Guardar'),
+      label: Text('Guardar cambio'),
       icon: Icon(Icons.save),
       onPressed: (_guardando)? null :  _submit,
     );
@@ -182,29 +188,12 @@ class _ActividadPageState extends State<ActividadPage> {
     //ESTAMOS GUARDANDO
     setState(() { _guardando = true; });
     //Condicionamos la creacion o actualizacion de un producto
-    if (actividad.idactividad == null) {
-      //Creamos la actividad
-      String act;
-      int curso;
-      //asignacion del creador de la actividad
-      actividad.idprofesor = _usuario.id;
-      //creada la actividad
-      actividadProvider.crearActividad(actividad);
-      //obtenemos el curso pasandole el identificador del profesor
-      curso = await cursoProvider.obtenerCurso(_usuario.id);
-      act = await actividadProvider.obtenerActividad(_usuario.id, actividad.descripcion,actividad.idasignatura);
-      //creamos la actividad al curso
-      cursoProvider.crearActividadenCurso(act, curso);
-      
-
-    } else {
       //Editar actividad
       actividadProvider.editarActividad(actividad);
-    }
     
     //Hemos terminado de guardar pero bloquearemos el boton en este caso para no tener problemas mas adelante
     // setState(() { _guardando = false; });
-    mostrarSnackbar('Registro Guardado');
+    mostrarSnackbar('Registro Cambiado');
     //Salimos de la pagina actual
     Navigator.pop(context);
   }
