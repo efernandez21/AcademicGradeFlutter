@@ -34,7 +34,26 @@ class _CalendarioPageState extends State<CalendarioPage> {
       body:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Center(child: TableCalendar(calendarController: _controller))
+          Center(
+            child: 
+            TableCalendar(
+              headerStyle: HeaderStyle(
+                centerHeaderTitle: true,
+                formatButtonVisible: false,
+              ),
+              calendarStyle: CalendarStyle
+              (
+                todayColor: Colors.red,
+                selectedColor: Theme.of(context).primaryColor,
+                todayStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                )
+              ),
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              calendarController: _controller
+            )
+            )
         ],
       )
     );
