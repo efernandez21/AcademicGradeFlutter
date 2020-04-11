@@ -1,7 +1,20 @@
+
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-class CalendarioPage extends StatelessWidget {
+class CalendarioPage extends StatefulWidget {
 
+  @override
+  _CalendarioPageState createState() => _CalendarioPageState();
+}
+
+class _CalendarioPageState extends State<CalendarioPage> {
+  CalendarController _controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller=CalendarController();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +34,7 @@ class CalendarioPage extends StatelessWidget {
       body:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Center(child: Text("Aqui va el calendario"))
+          Center(child: TableCalendar(calendarController: _controller))
         ],
       )
     );

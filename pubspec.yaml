@@ -19,14 +19,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-<<<<<<< HEAD
-  table_calendar: ^2.2.3
-=======
   rxdart: ^0.23.1
   http:
   http_parser:
-
->>>>>>> ab6d925df24c30bc92229613e9f4b52cc8b54b93
+  table_calendar: ^2.2.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
