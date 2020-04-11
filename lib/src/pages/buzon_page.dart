@@ -46,10 +46,7 @@ class _BuzonPageState extends State<BuzonPage> {
           icon: Icon(Icons.add),
           title: Text('Crear Mensaje')
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.create),
-          title: Text('Editar Mensaje')
-        ),
+
         BottomNavigationBarItem(
           icon: Icon(Icons.delete),
           title: Text('Eliminar Mensaje')
