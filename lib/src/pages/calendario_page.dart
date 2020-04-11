@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:table_calendar/table_calendar.dart';
 class CalendarioPage extends StatelessWidget {
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class CalendarioPage extends StatelessWidget {
       body:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Center(child: Text('Aquí va el calendario'))
+          Center(child: Text("Aqui va el calendario"))
         ],
       )
     );
