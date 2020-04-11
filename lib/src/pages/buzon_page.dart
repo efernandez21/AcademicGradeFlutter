@@ -23,13 +23,7 @@ class _BuzonPageState extends State<BuzonPage> {
         title: Text('Bandeja de Entrada'),
       ),
       drawer: MenuDrawer(),
-      body: ListView.builder(
-        padding: EdgeInsets.all(10),
-        itemCount: 8,
-        itemBuilder: (BuildContext context,int index){
-          return _crearListado();
-        },
-      ),
+      body: _crearListado(),
       bottomNavigationBar: _crearBottomNavigationBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
@@ -98,6 +92,7 @@ class _BuzonPageState extends State<BuzonPage> {
     return  Card(
       child: Column(
         children: <Widget>[
+          SizedBox(height:10.0),
           ListTile(
             leading: Icon(Icons.message),
             title: Text('${ mensaje.asunto} '),
