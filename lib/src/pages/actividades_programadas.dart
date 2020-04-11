@@ -75,7 +75,7 @@ class ActividadesProgramadasPage extends StatelessWidget {
                 title: Text('${ actividad.descripcion} '),
                 subtitle: Text('Fecha limite de entrega:'+actividad.fecha),
                 //Pasamos a la otra pantalla y le entregamos el producto completo
-                // onTap: () => Navigator.pushNamed(context, 'actividad', arguments: actividad),
+                onTap: () => Navigator.pushNamed(context, 'editaractividad', arguments:actividad  ),
               ),
 
           ],

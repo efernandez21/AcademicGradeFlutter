@@ -17,10 +17,10 @@ class Actividad {
 
     Actividad({
         this.idactividad,
-        this.descripcion,
-        this.fecha,
-        this.idasignatura,
-        this.idprofesor,
+        this.descripcion ='',
+        this.fecha ='',
+        this.idasignatura =0,
+        this.idprofesor =0,
     });
 
     factory Actividad.fromJson(Map<String, dynamic> json) => Actividad(

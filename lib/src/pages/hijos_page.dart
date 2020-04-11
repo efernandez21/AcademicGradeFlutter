@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:academic_grade/src/models/Curso.dart';
+import 'package:academic_grade/src/providers/curso_provider.dart';
 import 'package:academic_grade/src/models/Estudiante_model.dart';
 import 'package:academic_grade/src/providers/estudiantes_provider.dart';
 import 'package:academic_grade/src/models/Acudiente.dart';
@@ -7,9 +9,14 @@ import 'package:academic_grade/src/models/Acudiente.dart';
 
 class HijosPage extends StatelessWidget {
 
-  //Trabajando tipografias
+  //Importando modelos
+  // Curso curso = new Curso();
   Acudiente _acudiente;
+  //Providers
   final estudiantesProvider = new EstudianteProvider();
+  final cursoProvider = new CursoProvider();
+
+  //Caracteristicas
   final estiloTitulo = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
   final estiloSubTitulo = TextStyle(fontSize: 18.0, color: Colors.grey);
   @override
@@ -27,7 +34,7 @@ class HijosPage extends StatelessWidget {
   Widget _cargarEstudiantes(){
 
     return FutureBuilder(
-      future: estudiantesProvider.cargarHijos(),
+      future: estudiantesProvider.cargarHijos(_acudiente.id),
       builder: (BuildContext context, AsyncSnapshot<List<Estudiante>> snapshot) {
         //Condicion evaluada
         if(snapshot.hasData){
@@ -50,25 +57,47 @@ class HijosPage extends StatelessWidget {
 
   }
   Widget _cardHijo(BuildContext context,Estudiante estudiante){
+    
 
-    return Card(
-        child: Column(
-          children: <Widget>[
-            //Imagen Opcional en este caso controlada con el operador ternario
-              // ? Image(image: AssetImage('assets/no-image.png'))
-              ListTile(
-                leading: Image(
-                  image: AssetImage('assets/img/estudiante.png') 
-                ),
-                title: Text('${ estudiante.nombre}  ${estudiante.apellido}'),
-                subtitle: Text('Estudiante perteneciente al Grado 3A'),
-                //Pasamos a la otra pantalla y le entregamos el producto completo
-                // onTap: () => Navigator.pushNamed(context, 'actividad', arguments: actividad),
-              ),
+    return FutureBuilder(
+      future: cursoProvider.consultarCurso(estudiante.idcurso),
+      builder: (BuildContext context, AsyncSnapshot<Curso> snapshot) {
 
-          ],
-        ),
-      );
+        if(snapshot.hasData){
+          //Informacion con respecto al curso
+          final curso = snapshot.data;
+
+          return Card(
+            child: Column(
+              children: <Widget>[
+                //Imagen Opcional en este caso controlada con el operador ternario
+                  // ? Image(image: AssetImage('assets/no-image.png'))
+                  SizedBox(height:15.0),
+                  ListTile(
+                    leading: Image(
+                      image: AssetImage('assets/img/estudiante.png') 
+                    ),
+                    title: Text('${ estudiante.nombre}  ${estudiante.apellido}'),
+                    subtitle: Text('Estudiante perteneciente al Grado ${curso.grado}${curso.grupo}'),
+                    trailing: Icon(
+                      Icons.arrow_forward,
+                      color: Theme.of(context).primaryColor,
+                      
+                    ),
+                    //Pasamos a la otra pantalla y le entregamos el producto completo
+                    // onTap: () => Navigator.pushNamed(context, 'actividad', arguments: actividad),
+                  ),
+
+              ],
+            ),
+          );
+
+        } else{
+          return Image(image: AssetImage('assets/img/cargando_barra.gif'));
+        }
+
+      },
+    );
 
   }
 
