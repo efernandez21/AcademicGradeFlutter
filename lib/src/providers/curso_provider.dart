@@ -131,6 +131,23 @@ class CursoProvider {
     //retornamos el curso seleccionado
     return cursoActual;
   }
+  //Conseguir el id de las actividades asignadas al curso
+  Future<List<String>> listarActividadesCurso(int curso) async{
+    List<String> codigoActividades = new List();
+    List<CursoActividad> cursoactividades;
+    //Obtenemos los resultados del metodo anterior
+    cursoactividades = await cargarCursosActividades();
 
+    cursoactividades.forEach((cursoAct){
+
+      if(cursoAct.idcurso == curso){
+        codigoActividades.add(cursoAct.idactividad);
+      }
+
+    });
+    //Retornamos la lista de actividades
+    print(codigoActividades);
+    return codigoActividades;
+  }
 
 }

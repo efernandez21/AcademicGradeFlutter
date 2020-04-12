@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:academic_grade/src/providers/curso_provider.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -91,6 +92,20 @@ class ActividadesProvider {
     });
     //Este es el curso al que le dicta el profesor
     return codigoActividad;
+  }
+  //Cargar Actividades por curso
+  Future<List<Actividad>> cargarActividadesCurso(List<String> codigoActividades) async{
+    List<Actividad> actividades,actividadesCurso; 
+    actividadesCurso = new List();
+    //Cargamos las actividades
+    actividades = await cargarActividades();
+    // ahora las seleccionaremos
+    for (var i = 0; i < codigoActividades.length; i++) {
+      var actividadTemp = actividades.firstWhere((actividad) => actividad.idactividad == codigoActividades[i]);
+      actividadesCurso.add(actividadTemp);
+    }
+    print(actividadesCurso);
+    return actividadesCurso;
   }
 
 }

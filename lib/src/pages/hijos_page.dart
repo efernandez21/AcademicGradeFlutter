@@ -85,7 +85,7 @@ class HijosPage extends StatelessWidget {
                       
                     ),
                     //Pasamos a la otra pantalla y le entregamos el producto completo
-                    // onTap: () => Navigator.pushNamed(context, 'actividad', arguments: actividad),
+                    onTap: () => Navigator.pushNamed(context, 'cursoactividad', arguments: estudiante)
                   ),
 
               ],

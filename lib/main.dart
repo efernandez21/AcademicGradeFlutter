@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 //Importaciones paginas
+import 'package:academic_grade/src/pages/cursoactividad_page.dart';
 import 'package:academic_grade/src/pages/editarActividad_page.dart';
 import 'package:academic_grade/src/pages/hijos_page.dart';
 import 'package:academic_grade/src/pages/actividades_programadas.dart';
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
         'programadas'       : (BuildContext context ) => ActividadesProgramadasPage(),
         'hijos'             : (BuildContext context ) => HijosPage(),
         'editaractividad'   : (BuildContext context ) => EditarActividadPage(),
+        'cursoactividad'    : (BuildContext context ) => CursoActividadesPage(),
+
         
       },
       theme: ThemeData(
