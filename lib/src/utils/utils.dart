@@ -1,8 +1,35 @@
 
-
+import 'package:flutter/material.dart';
 //Utilidades varias
 
 import 'package:academic_grade/src/models/Asignatura.dart';
+//Mostramos una alerta en este caso un ShowDialog
+void mostrarAlerta(BuildContext context, String descripcion, String fecha) {
+
+  showDialog(
+    context: context,
+    builder:  (context){
+      //Cuadro de alerta 
+      return AlertDialog(
+        title: Column(
+          children: <Widget>[
+            Text('Informacion de la Actividad',style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height:10.0),
+            Text('Fecha limite: $fecha')
+
+          ],
+        ),
+        content: Text(descripcion),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: ()=> Navigator.of(context).pop(), 
+          )
+        ],
+      );
+    }
+  );
+}
 //
 int idMateriaSeleccionada(List<Asignatura> asignaturas, String asignaturaSeleccionada){
   //comprobacion de la materia seleccionada

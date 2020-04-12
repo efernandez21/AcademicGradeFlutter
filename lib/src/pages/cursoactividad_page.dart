@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+
 import 'package:academic_grade/src/models/Actividad_model.dart';
 import 'package:academic_grade/src/models/Estudiante_model.dart';
 import 'package:academic_grade/src/providers/actividades_provider.dart';
 import 'package:academic_grade/src/providers/curso_provider.dart';
-import 'package:flutter/material.dart';
-
+import 'package:academic_grade/src/utils/utils.dart' as utils;
 
 
 class CursoActividadesPage extends StatelessWidget {
@@ -49,7 +50,7 @@ class CursoActividadesPage extends StatelessWidget {
             itemCount: actividades.length,
             itemBuilder: (BuildContext context, int index) {
 
-              return _crearElementoLista(actividades[index]);
+              return _crearElementoLista(actividades[index],context);
 
             },
           );
@@ -63,18 +64,51 @@ class CursoActividadesPage extends StatelessWidget {
 
   }
   //Elemento o widget
-  Widget _crearElementoLista(Actividad actividad){
-    return ListTile(
-      leading: Icon(
-        Icons.assignment,
-        color: Colors.blue,
-      ),
-      title: Text(actividad.descripcion.toUpperCase()),
-      subtitle: Text('Fecha de entrega: ${actividad.fecha}'),
-      trailing: Icon(
-        Icons.assignment_turned_in,
-        color: Colors.yellow,
-      ),
+  Widget _crearElementoLista(Actividad actividad, BuildContext context){
+    final String textoEstilo = actividad.fecha;
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 15.0,),
+        ( actividad.fotoUrl == null )
+          ? Image(
+            image: AssetImage('assets/img/no-image.png'),
+            height: 100.0,
+          )
+          : FadeInImage(
+            placeholder: AssetImage('assets/img/jar-loading.gif'),
+            image: NetworkImage(actividad.fotoUrl),
+            height: 100.0,
+            width: double.infinity,
+            // fit: BoxFit.contain,
+          ),
+        Container(
+          padding: EdgeInsets.only(top:10.0),
+          child: ListTile(
+            leading: Icon(
+              Icons.assignment,
+              color: Colors.blue,
+            ),
+            title: Text(actividad.descripcion.toUpperCase()),
+            subtitle: Row(
+              children: <Widget>[
+                Text('Fecha de entrega: '),
+                Text(textoEstilo, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),)
+              ],
+            ),
+            trailing: Icon(
+              Icons.assignment_turned_in,
+              color: Colors.yellow,
+            ),
+            onTap: (){
+              utils.mostrarAlerta(context, actividad.descripcion, actividad.fecha);
+            },
+          ),
+        ),
+        Divider(
+          color: Theme.of(context).primaryColor,
+        )
+      ],
     );
   }
+
 }
