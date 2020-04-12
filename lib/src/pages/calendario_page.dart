@@ -60,7 +60,11 @@ class _CalendarioPageState extends State<CalendarioPage> {
             )
             ),
             Center(
-              child: _crearListado(),
+              child: Container(
+                padding: EdgeInsets.all(15.0),
+                height: 300,
+                child: _crearListado(),
+              ),
             )
         ],
       )
