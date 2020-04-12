@@ -202,6 +202,10 @@ class _EditarActividadPageState extends State<EditarActividadPage> {
     // print("================");
     //ESTAMOS GUARDANDO
     setState(() { _guardando = true; });
+    if ( foto != null ){
+      //si no es nulo subimos la imagen
+      actividad.fotoUrl = await actividadProvider.subirImagen(foto);
+    }
     //Condicionamos la creacion o actualizacion de un producto
       //Editar actividad
       actividadProvider.editarActividad(actividad);

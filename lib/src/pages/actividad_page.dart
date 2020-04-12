@@ -196,6 +196,11 @@ class _ActividadPageState extends State<ActividadPage> {
     // print("================");
     //ESTAMOS GUARDANDO
     setState(() { _guardando = true; });
+    //Subida Foto
+    if ( foto != null ){
+      //si no es nulo subimos la imagen
+      actividad.fotoUrl = await actividadProvider.subirImagen(foto);
+    }
     //Condicionamos la creacion o actualizacion de un producto
     if (actividad.idactividad == null) {
       //Creamos la actividad
@@ -210,11 +215,7 @@ class _ActividadPageState extends State<ActividadPage> {
       act = await actividadProvider.obtenerActividad(_usuario.id, actividad.descripcion,actividad.idasignatura);
       //creamos la actividad al curso
       cursoProvider.crearActividadenCurso(act, curso);
-      
-
-    } else {
-      //Editar actividad
-      actividadProvider.editarActividad(actividad);
+  
     }
     
     //Hemos terminado de guardar pero bloquearemos el boton en este caso para no tener problemas mas adelante

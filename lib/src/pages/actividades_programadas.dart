@@ -77,8 +77,20 @@ class ActividadesProgramadasPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             //Imagen Opcional en este caso controlada con el operador ternario
-              // ? Image(image: AssetImage('assets/no-image.png'))
+              ( actividad.fotoUrl == null )
+              ? Image(
+                image: AssetImage('assets/img/no-image.png'),
+                height: 100.0,
+              )
+              : FadeInImage(
+                placeholder: AssetImage('assets/img/jar-loading.gif'),
+                image: NetworkImage(actividad.fotoUrl),
+                height: 100.0,
+                width: double.infinity,
+                // fit: BoxFit.contain,
+              ),
               ListTile(
+                leading: Icon(Icons.class_, color: Colors.blueAccent,),
                 title: Text('${ actividad.descripcion} '),
                 subtitle: Text('Fecha limite de entrega:'+actividad.fecha),
                 //Pasamos a la otra pantalla y le entregamos el producto completo
