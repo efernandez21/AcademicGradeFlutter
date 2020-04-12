@@ -35,6 +35,10 @@
 //   Estudiante e6 = new Estudiante(6,"Daniela","Martinez","19-12-2013","Femenino",ac3,c1);
 //   //Actividades asignadas agregadas en firebase
 //   // Actividad act1 = new Actividad("realizar ejercicios de triangulos","2020-04-15",as1);
+main(){
+String fecha = "1998-03-22";
+DateTime fechaN = DateTime.parse(fecha);
+print(fechaN);}
 //   // Actividad act2 = new Actividad("realizar ejercicios de cuadrados","2020-04-16",as2);
 //   // Actividad act3 = new Actividad("realizar ejercicios de metros","2020-04-17",as3);
 //   // Actividad act4 = new Actividad("dibujar la celula animal","2020-04-18",as2);
@@ -66,4 +70,4 @@
 //   print(mensajes);
 
   
-// }
+// 
