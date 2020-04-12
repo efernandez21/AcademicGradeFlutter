@@ -1,15 +1,22 @@
+import 'package:flutter/material.dart';
+
 import 'package:academic_grade/src/models/Actividad_model.dart';
+import 'package:academic_grade/src/models/Profesor_model.dart';
 import 'package:academic_grade/src/providers/actividades_provider.dart';
 import 'package:academic_grade/src/providers/curso_provider.dart';
-import 'package:flutter/material.dart';
 
 class ActividadesProgramadasPage extends StatelessWidget {
   final actividadesProvider = new ActividadesProvider();
   final cursoProvider = new CursoProvider();
-
+  //para los datos del profesor
+  Profesor profesor = new Profesor();
   @override
   Widget build(BuildContext context) {
   
+    final profesorData = ModalRoute.of(context).settings.arguments;
+    if(profesorData != null){
+      profesor = profesorData;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +38,7 @@ class ActividadesProgramadasPage extends StatelessWidget {
   Widget _crearListado(){
     //En este caso es un futureBuilder, tenemos que enviarle los datos que recibira por parte de un metodo future builder
     return FutureBuilder(
-      future: actividadesProvider.cargarActividades(),
+      future: actividadesProvider.cargarActividadesProfesor(profesor.id),
       builder: (BuildContext context, AsyncSnapshot<List<Actividad>> snapshot) {
         //Condicionamos el retorno en este caso si hemos obtenido datos
         if(snapshot.hasData){

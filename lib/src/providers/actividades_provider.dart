@@ -1,6 +1,9 @@
 import 'dart:convert';
-import 'package:academic_grade/src/providers/curso_provider.dart';
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:http/http.dart' as http;
+// import 'package:academic_grade/src/providers/curso_provider.dart';
 
 
 //Clase para traernos la informacion de la base de datos
@@ -107,5 +110,58 @@ class ActividadesProvider {
     print(actividadesCurso);
     return actividadesCurso;
   }
+  //Carga las actividades dependiendo del profesor
+  Future<List<Actividad>> cargarActividadesProfesor(int ideprofesor) async{
+    
+    List<Actividad> actividadesTotal,actividadesProfesor ;
+    actividadesProfesor = new List();
+    actividadesTotal = await cargarActividades();
+    //Cargo la lista y trabajo con esto ahora la filtro
+    actividadesTotal.forEach((actividad){
+      //Filtro las actividades por el id del profesor
+      if(actividad.idprofesor == ideprofesor){
+        actividadesProfesor.add(actividad);
+      }
+    });
+    //Retorno la lista de actividades
+    return actividadesProfesor;
+    
+  }
+  //Metodo para subir una imagen
+  //Nuevos metodos para subir la imagen a una nube, en este caso un metodo que retorne un url de salida que usaremos para el firebase, recibe el archivo de la imagen
+  Future<String> subirImagen(File imagen) async{
+    //La creacion del url pide un uri, este no es un string plano como lo manejamos en firebase
+    final url = Uri.parse('https://api.cloudinary.com/v1_1/dpkqy4obp/image/upload?upload_preset=rn5z0s9i');
+    //Conocer el tipo de la imagen es necesario, cortamos el string obtenido en una lista en este caso para obtener el tipo de la imagen
+    final mimeType = mime(imagen.path).split('/');  //image/jpeg
+    //Realizacion de la peticion
+    final imageUploadRequest = http.MultipartRequest(
+      'POST',
+      url
+    );
+    //preparacion del archivo a adjuntar, en este caso el campo es el que ubicamos en el postman para el archivo, el path donde se encuentra la imagen y tambien el tipo de esta, el mimeType[0] es la imagen que se extrajo y el mimetype[1] es el tipode la imagen
+    final file = await http.MultipartFile.fromPath(
+      'file',
+       imagen.path,
+       contentType: MediaType(mimeType[0],mimeType[1])
+    );
+    //adjuntamos el archivo file a mi imageUploadRequest
+    imageUploadRequest.files.add(file);
+    //Enviamos nuestro requerimiento y recibimos un StreamResponse
+    final streamResponse = await imageUploadRequest.send();
+    //obtenemos la respuesta
+    final resp = await http.Response.fromStream(streamResponse);
+    //Ahora hacemos una validacion con respecto a la respuesta obtenida en nuestra aplicacion, con el codigo de status, en este caso 200 y 201 son mis codigos buenos por asi decirlo
+    if ( resp.statusCode != 200 && resp.statusCode != 201 ){
+      print('Algo salio mal');
+      print( resp.body );
+      return null;
+    }
+    //Si todo salio bueno extraemos el secure_url
+    final respData = json.decode(resp.body);
+    print(respData);
+    //retornamos entonces la url
+    return respData['secure_url'];
 
+  }
 }

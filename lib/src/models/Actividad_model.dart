@@ -14,13 +14,15 @@ class Actividad {
     String fecha;
     int idasignatura;
     int idprofesor;
+    String fotoUrl;
 
     Actividad({
         this.idactividad,
-        this.descripcion ='',
-        this.fecha ='',
-        this.idasignatura =0,
-        this.idprofesor =0,
+        this.descripcion='',
+        this.fecha='',
+        this.idasignatura,
+        this.idprofesor,
+        this.fotoUrl,
     });
 
     factory Actividad.fromJson(Map<String, dynamic> json) => Actividad(
@@ -29,6 +31,7 @@ class Actividad {
         fecha: json["fecha"],
         idasignatura: json["idasignatura"],
         idprofesor: json["idprofesor"],
+        fotoUrl: json["fotoUrl"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -37,5 +40,6 @@ class Actividad {
         "fecha": fecha,
         "idasignatura": idasignatura,
         "idprofesor": idprofesor,
+        "fotoUrl": fotoUrl,
     };
 }

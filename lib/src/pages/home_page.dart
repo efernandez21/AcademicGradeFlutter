@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   List<String> _usuarios = new List();
   String _opcionSeleccionada = 'Profesor Fabio';
   //Booleano que bloqueara el boton
-  bool _cargando = false;
+  // bool _cargando = false;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
       elevation: 1.0,
       color: Theme.of(context).primaryColor,
       textColor: Colors.white,
-      onPressed: (!_cargando)? null: () {
+      onPressed: () {
         //Nos redirigira a la pagina seleccionada en este caso si es un profesor o es un acudiente
         var argument,ruta;
         int index; 
@@ -188,7 +188,6 @@ class _HomePageState extends State<HomePage> {
       ));
 
     });
-    _cargando = true;
     return lista;
 
   }

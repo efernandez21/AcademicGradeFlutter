@@ -1,13 +1,16 @@
-import 'package:academic_grade/src/models/Profesor_model.dart';
-import 'package:academic_grade/src/providers/curso_provider.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:academic_grade/src/utils/utils.dart' as utils;
-
-import 'package:academic_grade/src/models/Actividad_model.dart';
-import 'package:academic_grade/src/models/Asignatura.dart';
+import 'package:academic_grade/src/providers/curso_provider.dart';
 import 'package:academic_grade/src/providers/actividades_provider.dart';
 import 'package:academic_grade/src/providers/asignatura_provider.dart';
+
+
+import 'package:academic_grade/src/models/Profesor_model.dart';
+import 'package:academic_grade/src/models/Actividad_model.dart';
+import 'package:academic_grade/src/models/Asignatura.dart';
 
 
 class ActividadPage extends StatefulWidget {
@@ -30,6 +33,8 @@ class _ActividadPageState extends State<ActividadPage> {
   Actividad actividad = new Actividad();
   String _opcionSeleccionada = "Matematicas";
   int _materiaSeleccionada = 1;
+  //File es el archivo que representa la foto en este caso esta tiene por defecto un null
+  File foto;
   //Variable booleana para indicar el guardado de una aplicacion
   bool _guardando = false;
 
@@ -42,6 +47,16 @@ class _ActividadPageState extends State<ActividadPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('Nueva Actividad'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.photo_size_select_actual), 
+              onPressed: _seleccionarFoto,
+          ),
+          IconButton(
+            icon: Icon(Icons.camera_alt),
+            onPressed: _tomarFoto,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -229,34 +244,55 @@ class _ActividadPageState extends State<ActividadPage> {
   }
   //Widget que mostrara la foto en la pantalla del producto
   Widget _mostrarFoto() {
-    //Imagen defecto
-    return Image(
-      image: AssetImage('assets/img/no-image.png')
-    );
+
+    if( actividad.fotoUrl != null ){
+   
+      return FadeInImage(
+       placeholder: AssetImage('assets/img/jar-loading.gif'),
+       image: NetworkImage(actividad.fotoUrl),
+       height: 300.0,
+       fit: BoxFit.cover,
+      );
+    } else {
+      //Caso contrario una imagen por defecto o el path de la imagen desde el dispositivo
+      if( foto != null ){
+        return Image.file(
+          foto,
+          fit: BoxFit.cover,
+          height: 300.0,
+        );
+      } else {
+        return Image.asset(
+          'assets/img/no-image.png',
+          height: 300.0,
+          fit: BoxFit.cover,
+        );
+      }
+    }
 
   }
-  // //Metodos para seleccionar la foto de la galeria
-  // _seleccionarFoto() async{
-  //   //Trabajando con la libreria, en este caso para acceder a esta me pide una fuente
-  //   _procesarImagen(ImageSource.gallery);
-  // }
-  // //Metodo para tomar la foto
-  // _tomarFoto() async{
-  //   //Procesamiento de la foto
-  //   _procesarImagen(ImageSource.camera);  
-  // }
-  // //Optimizacion al proceso del llamado del proceso de la imagen
-  // _procesarImagen(ImageSource origen) async{
-  //   //Usando el pickImage pedimos la informacion en este caso de un origen que puede ser la camara o la galeria de archivos
-  //   foto = await ImagePicker.pickImage(
-  //     source: origen
-  //   );
-  //   //Creamos una condicion para manejar el estado de la foto, en este caso si no seleccionamos en este caso para redibujar una nueva foto
-  //   if( foto != null){
-  //     producto.fotoUrl=null;
-  //   }
-  //   setState(() {});
-  // }
+  //Metodos para seleccionar la foto de la galeria
+  _seleccionarFoto() async{
+    //Trabajando con la libreria, en este caso para acceder a esta me pide una fuente
+    _procesarImagen(ImageSource.gallery);
+  }
+  //Metodo para tomar la foto
+  _tomarFoto() async{
+    //Procesamiento de la foto
+    _procesarImagen(ImageSource.camera);  
+  }
+  //Optimizacion al proceso del llamado del proceso de la imagen
+  _procesarImagen(ImageSource origen) async{
+    //Usando el pickImage pedimos la informacion en este caso de un origen que puede ser la camara o la galeria de archivos
+    foto = await ImagePicker.pickImage(
+      source: origen
+    );
+    //Creamos una condicion para manejar el estado de la foto, en este caso si no seleccionamos en este caso para redibujar una nueva foto
+    if( foto != null){
+      actividad.fotoUrl=null;
+    }
+    setState(() {});
+  }
 
 
 
