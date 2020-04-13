@@ -75,3 +75,39 @@ int buscarElemento(List<dynamic> usuario, List<String> lista ){
   
   return index;
 }
+
+void mostrarCargando(BuildContext context){
+  showDialog(
+    context: context,
+    builder:  (context){
+      //Cuadro de alerta 
+      return AlertDialog(
+        title: Text(
+          'Guardando.....',
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        content: Image.asset('assets/img/jar-loading.gif'),
+        // actions: <Widget>[
+        //   Center(
+        //     child: Container(
+        //       child: CircularProgressIndicator(),
+        //     ),
+        //   )
+        // ],
+      );
+    }
+  );
+}
+//Arreglar un String de una fecha
+DateTime deStringDatetime(String fechaNormal){
+  String fechaNueva;
+  List<String> particion;
+  particion = fechaNormal.split('/');
+
+  fechaNueva = particion[2]+'-'+particion[1]+'-'+particion[0];
+  DateTime fechaN = DateTime.parse(fechaNueva);
+  return fechaN;
+}
+//Metodos para el calendario

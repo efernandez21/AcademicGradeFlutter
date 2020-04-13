@@ -194,6 +194,7 @@ class _EditarActividadPageState extends State<EditarActividadPage> {
     //Si no es verdadero entonces returne
     // if( !formKey.currentState.validate() ) return;
     // //Para controlar que se pueda ejecutar los saves del formulario tenemos que invocar su estado actual y ejecutar luego el save, asi tomaremos los valores colocados en los textformfile
+    utils.mostrarCargando(context);
     formKey.currentState.save();
     // print("================");
     // print(actividad.descripcion);
@@ -212,9 +213,11 @@ class _EditarActividadPageState extends State<EditarActividadPage> {
     
     //Hemos terminado de guardar pero bloquearemos el boton en este caso para no tener problemas mas adelante
     // setState(() { _guardando = false; });
-    mostrarSnackbar('Registro Cambiado');
+    // mostrarSnackbar('Registro Cambiado');
     //Salimos de la pagina actual
     Navigator.pop(context);
+    Navigator.pop(context);
+
   }
   //Metodo para trabajar con un SnackBar, a la que le pasaremos un mensaje, hay que tener en cuenta que para representarlo se necesita el Scaffold para poder mostrarlo
   void mostrarSnackbar(String mensaje) {

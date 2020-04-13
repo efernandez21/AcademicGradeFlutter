@@ -104,7 +104,8 @@ class ActividadesProvider {
     actividades = await cargarActividades();
     // ahora las seleccionaremos
     for (var i = 0; i < codigoActividades.length; i++) {
-      var actividadTemp = actividades.firstWhere((actividad) => actividad.idactividad == codigoActividades[i]);
+      //Generara error si no encuentra la condicion
+      var actividadTemp = actividades.firstWhere((actividad) => actividad.idactividad == codigoActividades[i]) ;
       actividadesCurso.add(actividadTemp);
     }
     print(actividadesCurso);

@@ -188,6 +188,7 @@ class _ActividadPageState extends State<ActividadPage> {
     //Si no es verdadero entonces returne
     // if( !formKey.currentState.validate() ) return;
     // //Para controlar que se pueda ejecutar los saves del formulario tenemos que invocar su estado actual y ejecutar luego el save, asi tomaremos los valores colocados en los textformfile
+    utils.mostrarCargando(context);
     formKey.currentState.save();
     // print("================");
     // print(actividad.descripcion);
@@ -220,7 +221,9 @@ class _ActividadPageState extends State<ActividadPage> {
     
     //Hemos terminado de guardar pero bloquearemos el boton en este caso para no tener problemas mas adelante
     // setState(() { _guardando = false; });
-    mostrarSnackbar('Registro Guardado');
+    // mostrarSnackbar('Registro Guardado');
+    //salida del dialog
+    Navigator.pop(context);
     //Salimos de la pagina actual
     Navigator.pop(context);
   }
